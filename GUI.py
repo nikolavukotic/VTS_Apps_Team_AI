@@ -126,7 +126,7 @@ button_four = tk.Button(
                             height=2, 
                             border=0,
                             text='temp',
-                            command=utils.empty_function_4
+                            command=utils.trbusnjaci
 )
 
 

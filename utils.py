@@ -5,6 +5,7 @@ from yolo import *
 from letenje import *
 from biceps import *
 from trbusnjaci import *
+from sklekovi import *
 import os
 import glob
 
@@ -47,11 +48,16 @@ def bicepsUspravnoStajanje(video):
 
     izracunajBiceps(cap) # Izračunaj i prikaži bicebs
 
-def empty_function_4(video):
+def trbusnjaci(video):
 
     cap = cv2.VideoCapture(video)
 
     izracunajTrbusnjaci(cap) # Izračunaj i prikaži trbusanjci
 
+def sklekovi(video):
+
+    cap = cv2.VideoCapture(video)
+
+    izracunajSklekovi(cap) # Izračunaj i prikaži sklekovi
 
 
