@@ -1,8 +1,4 @@
-from ultralytics import YOLO
-import cv2
 import math
-import numpy as np 
-from PIL import Image as im 
 
 class TackaNaTelu:
     def __init__(self, tacka: list[float]):

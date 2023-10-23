@@ -1,7 +1,4 @@
 from ultralytics import YOLO
-import cv2
-import math
-import numpy as np 
 from PIL import Image as im 
 from cucanj import *
 from osoba import *

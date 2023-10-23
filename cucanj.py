@@ -1,8 +1,10 @@
 import cv2
 from osoba import *
 from yolo import *
+proba1=65
 
 def izracunajCucanj(cap):
+    proba2=100
     while True:
         ret, frame = cap.read()  # Čitanje frejma sa kamere
         if not ret:
@@ -51,7 +53,10 @@ def izracunajCucanj(cap):
                     fontScale = 1.0,
                     color = (0, g, r),
                     thickness = 3)
-        cv2.imshow('Fit Assist', frame)
+        
+        cv2.imshow('VTSAssistant',frame)
         
         if cv2.waitKey(1) & 0xFF == 27:  # Esc taster za prekid petlje
             break
+    cv2.destroyAllWindows()
+    
