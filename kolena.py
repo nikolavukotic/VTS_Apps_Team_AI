@@ -9,7 +9,7 @@ def izracunajKolena(cap):
         if not ret:
             break
 
-        osoba = ocitaj(frame) # Čitanje osobe sa frejma
+        osoba = osoba.ocitaj(frame) # Čitanje osobe sa frejma
         if(True):
 
             cv2.line(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
