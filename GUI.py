@@ -42,7 +42,7 @@ button_one = tk.Button(
                             height=2, 
                             border=0,
                             text='Čučanj',
-                            command=lambda:utils.cucanj(video)
+                            command=lambda:utils.cucanjj(video)
                                     
                             )
 
@@ -72,7 +72,7 @@ button_two = tk.Button(
                             height=2, 
                             border=0,
                             text='Letenje',
-                            command=utils.letenje
+                            command=lambda:utils.letenje(video)
 )
 
 button_two_border.grid(row=2, column=0, columnspan=1)
@@ -99,7 +99,7 @@ button_three = tk.Button(
                             height=2, 
                             border=0,
                             text='temp',
-                            command=utils.empty_function_3
+                            command=lambda:utils.bicepsUspravnoStajanje(video)
                             )
 
 button_three_border.grid(row=3, column=0, columnspan=1)
