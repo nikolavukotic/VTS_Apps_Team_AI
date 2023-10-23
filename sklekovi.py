@@ -71,7 +71,7 @@ def izracunajSklekovi(cap):
             r=0
             g=0
             ugaoTeloLevo = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviKuk,osoba.levoKoleno))
-            if(ugaoTeloLevo > 175 and ugaoDesniRuka < 185): 
+            if(ugaoTeloLevo > 175 and ugaoTeloLevo < 185): 
                 g=255 
             else: 
                 r=255
@@ -85,13 +85,13 @@ def izracunajSklekovi(cap):
             r=0
             g=0
             ugaoTeloDesno = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniKuk,osoba.desnoKoleno))
-            if(ugaoTeloLevo > 175 and ugaoDesniRuka < 185): 
+            if(ugaoTeloLevo > 175 and ugaoTeloDesno < 185): 
                 g=255 
             else: 
                 r=255
             cv2.putText(frame,
-                        text = str(ugaoTeloLevo),
-                        org = (int(osoba.leviKuk.x)-100, int(osoba.leviKuk.y)+20),
+                        text = str(ugaoTeloDesno),
+                        org = (int(osoba.desniKuk.x)-100, int(osoba.desniKuk.y)+20),
                         fontFace = cv2.FONT_HERSHEY_DUPLEX,
                         fontScale = 1.0,
                         color = (0, g, r),
