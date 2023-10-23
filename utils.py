@@ -6,6 +6,7 @@ from letenje import *
 from biceps import *
 from trbusnjaci import *
 from sklekovi import *
+from kolena import *
 import os
 import glob
 
@@ -59,5 +60,11 @@ def sklekovi(video):
     cap = cv2.VideoCapture(video)
 
     izracunajSklekovi(cap) # Izračunaj i prikaži sklekovi
+
+def kolena(video):
+
+    cap = cv2.VideoCapture(video)
+
+    izracunajKolena(cap) # Izračunaj i prikaži kolena
 
 
