@@ -29,27 +29,27 @@ def get_video_file_names(folder_path):
     return video_files
 
 
-def empty_function_1(video):
+def cucanj(video):
    cap = cv2.VideoCapture(video)
    izracunajCucanj(cap)
 
-def empty_function_2(video):
+def letenje(video):
    cap = cv2.VideoCapture(video)
    izracunajLetenje(cap)
 
-def empty_function_3(video):
+def biceps(video):
    cap = cv2.VideoCapture(video)
    izracunajBiceps(cap)
 
-def empty_function_4(video):
+def trbusnjaci(video):
    cap = cv2.VideoCapture(video)
    izracunajTrbusnjaci(cap)
 
-def empty_function_5(video):
+def sklekovi(video):
    cap = cv2.VideoCapture(video)
    izracunajSklekovi(cap)
 
-def empty_function_6(video):
+def kolena(video):
    cap = cv2.VideoCapture(video)
    izracunajKolena(cap)
 

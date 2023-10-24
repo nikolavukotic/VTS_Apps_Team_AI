@@ -6,7 +6,11 @@ import utils
 
 root = tk.Tk()
 root.title("VTSFIT")
-root.geometry("450x750")
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+screen_resolution = str(screen_width) + 'x' + str(screen_height)
+root.geometry(screen_resolution)
+root.state('zoomed')
 root.resizable(width=True, height=True)
 
 main_frame = tk.Frame(root, bg=colors.c1, pady=40)
@@ -53,31 +57,30 @@ def get_video():
 
 # Button commands
 def command_one():
-    video = get_video()
-    utils.empty_function_1(video)
+    #video =
+    utils.cucanj(get_video())
 
 def command_two():
     video = get_video()
-    utils.empty_function_2(video)
+    utils.letenje(video)
 
 def command_three():
     video = get_video()
-    utils.empty_function_3(video)
+    utils.biceps(video)
 
 def command_four():
     video = get_video()
-    utils.empty_function_4(video)
+    utils.trbusnjaci(video)
 
 def command_five():
     video = get_video()
-    utils.empty_function_5(video)
+    utils.sklekovi(video)
 
 def command_six():
     video = get_video()
-    utils.empty_function_6(video)
+    utils.kolena(video)
 
 # Buttons
-
 button_one_border = tk.Frame(
                         main_frame, 
                         highlightbackground = colors.c1,
