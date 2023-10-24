@@ -15,7 +15,7 @@ def izracunajSklekovi(cap):
 
             sredinaRameX = (osoba.desnoRame.x+osoba.levoRame.x)/2
             sredinaRameY = osoba.desnoRame.y
-            sredinaKukX = (osoba.desniKuk.x+osoba.levoKuk.x)/2
+            sredinaKukX = (osoba.desniKuk.x+osoba.leviKuk.x)/2
             sredinaKukY = osoba.desniKuk.y
             sredinaKolenoX = (osoba.desnoKoleno.x+osoba.levoKoleno.x)/2
             sredinaKolenoY = osoba.desnoKoleno.y

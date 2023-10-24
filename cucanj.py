@@ -1,6 +1,6 @@
 import cv2
 from osoba import *
-from yolo import *
+import yolo
 
 
 def izracunajCucanj(cap):
@@ -9,7 +9,7 @@ def izracunajCucanj(cap):
         if not ret:
             break
 
-        osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
+        osoba = yolo.ocitajOsobu(frame) # Čitanje osobe sa frejma
 
         if(osoba.levoKoleno.visibility > 0.5 and osoba.desnoKoleno.visibility > 0.5):
 
