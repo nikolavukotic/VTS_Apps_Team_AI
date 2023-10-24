@@ -2,6 +2,8 @@ import tkinter as tk
 import cv2
 from colors import ColorPalette as colors
 import utils
+from tkinter import PhotoImage
+from PIL import Image, ImageTk
 
 root = tk.Tk()
 root.title("VTSFIT")
@@ -72,6 +74,29 @@ def command_five():
 
 def command_six():
     utils.kolena(get_video())
+
+#image = PhotoImage(file="strumf.png")
+#image_label = tk.Label(main_frame, image=image)
+#image_label.grid(row=1, column=1, columnspan=7)
+
+image_label = tk.Label(root, image=photo)
+image_label.pack()
+image = Image.open("strumf.png")
+photo = ImageTk.PhotoImage(image)
+
+def update_image():
+    # Load the updated image (you can replace this with your method to generate the new image)
+    updated_image = Image.open("strumf.png")  # Replace with your method to update the image
+    updated_photo = ImageTk.PhotoImage(updated_image)
+
+    # Update the label with the new image
+    image_label.configure(image=updated_photo)
+    image_label.image = updated_photo
+    
+    root.after(1000, update_image)
+
+def temp_one():
+    pass
 
 # Buttons
 button_one_border = tk.Frame(
@@ -235,5 +260,9 @@ button_six = tk.Button(
 
 button_six_boarder.grid(row=7, column=0, columnspan=1)
 button_six.grid(column=0, row=0)
+
+button = tk.Button(root, text="Click Me", command=temp_one)
+button.pack()
+
 
 root.mainloop()
