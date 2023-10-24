@@ -11,6 +11,7 @@ from sklekovi import *
 from kolena import *
 
 
+
 # Other
 
 def get_video_file_names(folder_path):
@@ -52,6 +53,7 @@ def sklekovi(video):
 def kolena(video):
    cap = cv2.VideoCapture(video)
    izracunajKolena(cap)
+
 
 
 

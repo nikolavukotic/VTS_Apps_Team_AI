@@ -1,13 +1,19 @@
 import cv2
 from osoba import *
 import yolo
+import math
+import numpy as np 
+from PIL import Image as im
 
 
 def izracunajCucanj(cap):
     while True:
+
         ret, frame = cap.read()  # Čitanje frejma sa kamere
         if not ret:
             break
+
+        
 
         osoba = yolo.ocitajOsobu(frame) # Čitanje osobe sa frejma
 
@@ -62,7 +68,12 @@ def izracunajCucanj(cap):
                         fontScale = 1.0,
                         color = (0, g, r),
                         thickness = 3)
-        cv2.imshow('VTSAssistant',frame)
+        array = frame
+        data = im.fromarray(array)
+        data.save('strumf.png')
+
+        #cv2.imshow('VTSAssistant',frame)
+
         
         if cv2.waitKey(1) & 0xFF == 27:  # Esc taster za prekid petlje
             break

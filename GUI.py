@@ -1,6 +1,5 @@
 import tkinter as tk
 import cv2
-
 from colors import ColorPalette as colors
 import utils
 
