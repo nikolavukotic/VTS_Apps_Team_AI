@@ -78,11 +78,11 @@ def command_six():
 #image = PhotoImage(file="strumf.png")
 #image_label = tk.Label(main_frame, image=image)
 #image_label.grid(row=1, column=1, columnspan=7)
-
-image_label = tk.Label(root, image=photo)
-image_label.pack()
 image = Image.open("strumf.png")
 photo = ImageTk.PhotoImage(image)
+image_label = tk.Label(root, image=photo)
+image_label.pack()
+
 
 def update_image():
     # Load the updated image (you can replace this with your method to generate the new image)
