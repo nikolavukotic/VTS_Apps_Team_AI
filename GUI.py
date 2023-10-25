@@ -6,6 +6,7 @@ from tkinter import PhotoImage
 from PIL import Image as im, ImageTk
 import cucanj
 import os
+import numpy
 
 root = tk.Tk()
 root.title("VTSFIT")
@@ -95,14 +96,19 @@ def frame_generator(video,frame_number):
           
 
 def update_image():
+
     br = 0
     print("test 1")
     frame = frame_generator(video,br)
 
+    image = im.open('strumf.png')
+    img_array = numpy.np.array(image)
+
     output_filename = 'strumf.png'
+    
     cv2.imwrite(output_filename, frame)
 
-    cucanj.test('strumf.png')
+    cucanj.test(frame)
 
     # Load the updated image (you can replace this with your method to generate the new image)
     updated_image = im.open("strumf.png")  # Replace with your method to update the image
@@ -115,6 +121,7 @@ def update_image():
     root.after(300, update_image)
     print("test 2")
     br=br+1
+
 
 def temp_one():
     update_image();
