@@ -16,7 +16,7 @@ main_frame.columnconfigure(0, weight=1)
 logo_label = tk.Label(main_frame, text="VTSFIT", font=("Helvetica", 24), background=colors.c1, foreground=colors.c2)
 logo_label.grid(row=0, column=0, padx=10, pady=10)
 
-folder_path = 'C:/Users/Korisnik/Desktop/Projekti/Py PROJEKAT/videoSnimci'
+folder_path = "videoSnimci"
 options_list = utils.get_video_file_names(folder_path)
 selected_option = tk.StringVar(main_frame) 
 selected_option.set("Izaberite video")
