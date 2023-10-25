@@ -1,12 +1,17 @@
 import tkinter as tk
 import cv2
-
 from colors import ColorPalette as colors
 import utils
+from tkinter import PhotoImage
+from PIL import Image, ImageTk
 
 root = tk.Tk()
 root.title("VTSFIT")
-root.geometry("450x750")
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+screen_resolution = str(screen_width) + 'x' + str(screen_height)
+root.geometry(screen_resolution)
+root.state('zoomed')
 root.resizable(width=True, height=True)
 
 main_frame = tk.Frame(root, bg=colors.c1, pady=40)
@@ -51,36 +56,49 @@ def get_video():
     print(video)
     return str(video)
 
-submit_button = tk.Button(root, text='Submit', command=get_video()) 
-submit_button.pack() 
-
 # Button commands
 def command_one():
-    video = get_video()
-    utils.empty_function_1(video)
+    utils.cucanj(get_video())
 
 def command_two():
-    video = get_video()
-    utils.empty_function_2(video)
+    utils.letenje(get_video())
 
 def command_three():
-    video = get_video()
-    utils.empty_function_3(video)
+    utils.biceps(get_video())
 
 def command_four():
-    video = get_video()
-    utils.empty_function_4(video)
+    utils.trbusnjaci(get_video())
 
 def command_five():
-    video = get_video()
-    utils.empty_function_5(video)
+    utils.sklekovi(get_video())
 
 def command_six():
-    video = get_video()
-    utils.empty_function_6(video)
+    utils.kolena(get_video())
+
+#image = PhotoImage(file="strumf.png")
+#image_label = tk.Label(main_frame, image=image)
+#image_label.grid(row=1, column=1, columnspan=7)
+image = Image.open("strumf.png")
+photo = ImageTk.PhotoImage(image)
+image_label = tk.Label(root, image=photo)
+image_label.pack()
+
+
+def update_image():
+    # Load the updated image (you can replace this with your method to generate the new image)
+    updated_image = Image.open("strumf.png")  # Replace with your method to update the image
+    updated_photo = ImageTk.PhotoImage(updated_image)
+
+    # Update the label with the new image
+    image_label.configure(image=updated_photo)
+    image_label.image = updated_photo
+    
+    root.after(1000, update_image)
+
+def temp_one():
+    pass
 
 # Buttons
-
 button_one_border = tk.Frame(
                         main_frame, 
                         highlightbackground = colors.c1,
@@ -242,5 +260,9 @@ button_six = tk.Button(
 
 button_six_boarder.grid(row=7, column=0, columnspan=1)
 button_six.grid(column=0, row=0)
+
+button = tk.Button(root, text="Click Me", command=temp_one)
+button.pack()
+
 
 root.mainloop()
