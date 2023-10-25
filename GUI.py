@@ -3,7 +3,9 @@ import cv2
 from colors import ColorPalette as colors
 import utils
 from tkinter import PhotoImage
-from PIL import Image, ImageTk
+from PIL import Image as im, ImageTk
+import cucanj
+import os
 
 root = tk.Tk()
 root.title("VTSFIT")
@@ -78,25 +80,44 @@ def command_six():
 #image = PhotoImage(file="strumf.png")
 #image_label = tk.Label(main_frame, image=image)
 #image_label.grid(row=1, column=1, columnspan=7)
-image = Image.open("strumf.png")
+image = im.open("strumf.png")
 photo = ImageTk.PhotoImage(image)
 image_label = tk.Label(root, image=photo)
 image_label.pack()
 
+video="videoSnimci/squadtime1.mp4"
+
+def frame_generator(video,frame_number):
+   cap = cv2.VideoCapture(video)
+   cap.set(1,frame_number)
+   ret, frame = cap.read()  # Čitanje frejma sa kamere
+   return frame
+          
 
 def update_image():
+    br = 0
+    print("test 1")
+    frame = frame_generator(video,br)
+
+    output_filename = 'strumf.png'
+    cv2.imwrite(output_filename, frame)
+
+    cucanj.test('strumf.png')
+
     # Load the updated image (you can replace this with your method to generate the new image)
-    updated_image = Image.open("strumf.png")  # Replace with your method to update the image
+    updated_image = im.open("strumf.png")  # Replace with your method to update the image
     updated_photo = ImageTk.PhotoImage(updated_image)
 
     # Update the label with the new image
     image_label.configure(image=updated_photo)
     image_label.image = updated_photo
     
-    root.after(1000, update_image)
+    root.after(300, update_image)
+    print("test 2")
+    br=br+1
 
 def temp_one():
-    pass
+    update_image();
 
 # Buttons
 button_one_border = tk.Frame(
@@ -261,8 +282,8 @@ button_six = tk.Button(
 button_six_boarder.grid(row=7, column=0, columnspan=1)
 button_six.grid(column=0, row=0)
 
-button = tk.Button(root, text="Click Me", command=temp_one)
-button.pack()
+button = tk.Button(main_frame, text="Click Me", command=temp_one)
+button.grid(row=7, column=2, columnspan=1)
 
 
 root.mainloop()
