@@ -6,7 +6,8 @@ import numpy as np
 from PIL import Image as im
 
 def test(frame):
-    osoba = yolo.ocitajOsobu(frame) # Čitanje osobe sa frejma
+    
+    osoba = yolo.testYolo() # Čitanje osobe sa frejma
 
     if(osoba.levoKoleno.visibility > 0.5 and osoba.desnoKoleno.visibility > 0.5):
 
@@ -59,9 +60,7 @@ def test(frame):
             fontScale = 1.0,
             color = (0, g, r),
             thickness = 3)
-    array = frame
-    data = im.fromarray(array)
-    data.save('strumf.png')
+    
 
 
 
