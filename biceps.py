@@ -3,6 +3,7 @@ from osoba import *
 from yolo import *
 
 
+
 def izracunajBiceps(cap):
     while True:
         ret, frame = cap.read()  # Čitanje frejma sa kamere
