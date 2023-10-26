@@ -5,9 +5,9 @@ import math
 import numpy as np 
 from PIL import Image as im
 
-def test(frame):
-    print(type(frame))
-    osoba = yolo.testYolo() # Čitanje osobe sa frejma
+def squat_draw_yolo(frame):
+    
+    osoba = yolo.testYolo(frame) # Čitanje osobe sa frejma
 
     if(osoba.levoKoleno.visibility > 0.5 and osoba.desnoKoleno.visibility > 0.5):
 
@@ -61,11 +61,13 @@ def test(frame):
             color = (0, 0, 255),
             thickness = 3)
     
+    return frame #vraca nacrtani fejm
 
 
 
 
-def izracunajCucanj(cap):
+
+#def izracunajCucanj(cap):
 
 
 

@@ -107,8 +107,8 @@ def update():
             x=96
         cap.release()
 
-        #cucanj.test(frame)
-        #return funcion for image update
+        sredjen = cucanj.squat_draw_yolo(frame)
+        
         #from numpy to image convert!!!!!
 
         updated_image = im.open("strumf.png")  

@@ -11,8 +11,8 @@ def ocitajOsobu(frame):
     osoba = Osoba(listaTacaka)
     return osoba
 
-def testYolo():
-    results = model(source="strumf.png")
+def testYolo(frame):
+    results = model(source=im.fromarray(frame))
     listaTacaka = results[0].keypoints.data.numpy()[0] # YOLO Pose modelu dajemo jedan frejm sa kojeg on čita tačke
     osoba = Osoba(listaTacaka)
     return osoba
