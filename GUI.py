@@ -104,14 +104,19 @@ def update():
         
         sredjen = cucanj.squat_draw_yolo(frame)
         
+
+        
         if ret:
-            cv2.imwrite('strumf.png', sredjen)
+            desired_width = 430
+            desired_height = 760
+            new_image = cv2.resize(sredjen, (desired_width, desired_height))
+            new_image = im.fromarray(cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB))
         else:
             print('Error: Frame not found')
             x=96
         cap.release()
         
-        updated_image = im.open("strumf.png")  
+        updated_image = new_image
         updated_photo = ImageTk.PhotoImage(updated_image)
         image_label.configure(image=updated_photo)
         image_label.image = updated_photo

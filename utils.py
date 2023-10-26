@@ -32,7 +32,7 @@ def get_video_file_names(folder_path):
 
 def cucanj(video):
    cap = cv2.VideoCapture(video)
-   izracunajCucanj(cap)
+   #izracunajCucanj(cap)
 
 def letenje(video):
    cap = cv2.VideoCapture(video)
