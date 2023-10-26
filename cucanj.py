@@ -58,7 +58,7 @@ def test(frame):
             org = (0,0),
             fontFace = cv2.FONT_HERSHEY_DUPLEX,
             fontScale = 1.0,
-            color = (0, g, r),
+            color = (0, 0, 255),
             thickness = 3)
     
 

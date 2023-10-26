@@ -63,8 +63,8 @@ option_menu.grid(row=1, column=0)
 def get_video():
     video = ''
     video = 'videoSnimci/' + selected_option.get()
-    print(video)
     return str(video)
+
 
 # Button commands
 def command_one():
@@ -85,88 +85,49 @@ def command_five():
 def command_six():
     utils.kolena(get_video())
 
-#image = PhotoImage(file="strumf.png")
-#image_label = tk.Label(main_frame, image=image)
-#image_label.grid(row=1, column=1, columnspan=7)
 image = im.open("strumf.png")
 photo = ImageTk.PhotoImage(image)
-image_label = tk.Label(root, image=photo)
-image_label.pack()
+image_label = tk.Label(main_frame, image=photo)
+image_label.grid(row=1, column=1, rowspan=20)
 
+br=0
+x = 69
+def update():
+        global br
+        global x
+        video = get_video()
 
+        cap = cv2.VideoCapture(video)
+        cap.set(cv2.CAP_PROP_POS_FRAMES, br)
+        ret, frame = cap.read()
+        if ret:
+            cv2.imwrite('strumf.png', frame)
+        else:
+            print('Error: Frame not found')
+            x=96
+        cap.release()
 
-def frame_generator(video,frame_number):
-   
-   cap = cv2.VideoCapture(video)
-   cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
-   ret, frame = cap.read()  # Čitanje frejma sa kamere
-   print(frame)
-   if ret:
-    cv2.imwrite('strumf.png', frame)
-    print('27th frame saved as cat.png')
-   else:
-    print('Error: Frame not found')
+        #cucanj.test(frame)
+        #return funcion for image update
+        #from numpy to image convert!!!!!
 
-   cap.release()
-   return frame
-          
-def mrs(temp):
-    video_path = 'videoSnimci\squatTrim1.mp4'
+        updated_image = im.open("strumf.png")  
+        updated_photo = ImageTk.PhotoImage(updated_image)
+        image_label.configure(image=updated_photo)
+        image_label.image = updated_photo
 
-# Initialize the video capture object
-    cap = cv2.VideoCapture(video_path)
+        if(x == 69):
+            br=br+1
+            root.after(150, update)
+            x=69
+            
+            
 
-# Get the frame at the 27th position (0-based index)
-    frame_number = temp
+        
 
-# Set the frame position
-    cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
+def update_loop_button():
+    update()
 
-# Read the frame
-    ret, frame = cap.read()
-
-# Check if the frame was read successfully
-    if ret:
-    # Save the frame as "cat.png"
-        cv2.imwrite('strumf.png', frame)
-        print('27th frame saved as cat.png')
-    else:
-        print('Error: Frame not found')
-
-# Release the video capture object
-    cap.release()
-   
-
-br = 1
-def update_image():
-    video="videoSnimci/squadtime1.mp4"
-    global br
-    print("test 1")
-    frame = frame_generator(video,br)
-
-    
-    
-    #cucanj.test(frame)
-
-    # Load the updated image (you can replace this with your method to generate the new image)
-    updated_image = im.open("strumf.png")  # Replace with your method to update the image
-    updated_photo = ImageTk.PhotoImage(updated_image)
-
-    # Update the label with the new image
-    image_label.configure(image=updated_photo)
-    image_label.image = updated_photo
-
-    print("test 2")
-    print(br)
-    mrs(br)
-    br=br+1
-
-    root.after(1, update_image)
-    
-
-
-def temp_one():
-    update_image();
 
 # Buttons
 button_one_border = tk.Frame(
@@ -331,7 +292,7 @@ button_six = tk.Button(
 button_six_boarder.grid(row=7, column=0, columnspan=1)
 button_six.grid(column=0, row=0)
 
-button = tk.Button(main_frame, text="Click Me", command=temp_one)
+button = tk.Button(main_frame, text="Click Me", command=update_loop_button)
 button.grid(row=7, column=2, columnspan=1)
 
 
