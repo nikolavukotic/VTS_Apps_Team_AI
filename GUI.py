@@ -6,7 +6,9 @@ from tkinter import PhotoImage
 from PIL import Image as im, ImageTk
 import cucanj
 import os
-import numpy
+import numpy as np
+
+
 
 root = tk.Tk()
 root.title("VTSFIT")
@@ -16,6 +18,11 @@ screen_resolution = str(screen_width) + 'x' + str(screen_height)
 root.geometry(screen_resolution)
 root.state('zoomed')
 root.resizable(width=True, height=True)
+
+def close_window(event):
+    root.destroy()
+    print("mrs")
+root.bind("<Escape>", close_window)
 
 main_frame = tk.Frame(root, bg=colors.c1, pady=40)
 main_frame.pack(fill=tk.BOTH, expand=True)
@@ -86,29 +93,60 @@ photo = ImageTk.PhotoImage(image)
 image_label = tk.Label(root, image=photo)
 image_label.pack()
 
-video="videoSnimci/squadtime1.mp4"
+
 
 def frame_generator(video,frame_number):
+   
    cap = cv2.VideoCapture(video)
-   cap.set(1,frame_number)
+   cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
    ret, frame = cap.read()  # Čitanje frejma sa kamere
+   print(frame)
+   if ret:
+    cv2.imwrite('strumf.png', frame)
+    print('27th frame saved as cat.png')
+   else:
+    print('Error: Frame not found')
+
+   cap.release()
    return frame
           
+def mrs(temp):
+    video_path = 'videoSnimci\squatTrim1.mp4'
 
+# Initialize the video capture object
+    cap = cv2.VideoCapture(video_path)
+
+# Get the frame at the 27th position (0-based index)
+    frame_number = temp
+
+# Set the frame position
+    cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
+
+# Read the frame
+    ret, frame = cap.read()
+
+# Check if the frame was read successfully
+    if ret:
+    # Save the frame as "cat.png"
+        cv2.imwrite('strumf.png', frame)
+        print('27th frame saved as cat.png')
+    else:
+        print('Error: Frame not found')
+
+# Release the video capture object
+    cap.release()
+   
+
+br = 1
 def update_image():
-
-    br = 0
+    video="videoSnimci/squadtime1.mp4"
+    global br
     print("test 1")
     frame = frame_generator(video,br)
 
-    image = im.open('strumf.png')
-    img_array = numpy.np.array(image)
-
-    output_filename = 'strumf.png'
     
-    cv2.imwrite(output_filename, frame)
-
-    cucanj.test(frame)
+    
+    #cucanj.test(frame)
 
     # Load the updated image (you can replace this with your method to generate the new image)
     updated_image = im.open("strumf.png")  # Replace with your method to update the image
@@ -117,10 +155,14 @@ def update_image():
     # Update the label with the new image
     image_label.configure(image=updated_photo)
     image_label.image = updated_photo
-    
-    root.after(300, update_image)
+
     print("test 2")
+    print(br)
+    mrs(br)
     br=br+1
+
+    root.after(1, update_image)
+    
 
 
 def temp_one():

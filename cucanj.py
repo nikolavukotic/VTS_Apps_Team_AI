@@ -6,7 +6,7 @@ import numpy as np
 from PIL import Image as im
 
 def test(frame):
-    
+    print(type(frame))
     osoba = yolo.testYolo() # Čitanje osobe sa frejma
 
     if(osoba.levoKoleno.visibility > 0.5 and osoba.desnoKoleno.visibility > 0.5):

@@ -8,7 +8,7 @@ def izracunajLetenje(cap):
         ret, frame = cap.read()  # Čitanje frejma sa kamere
         if not ret:
             break
-
+            
         osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
         if((osoba.desniLakat.visibility > 0.5 and osoba.desnoRame.visibility > 0.5 and osoba.desniKuk.visibility > 0.5 and osoba.desnaSaka.visibility > 0.5) or 
           ( osoba.leviLakat.visibility > 0.5 and osoba.levoRame.visibility > 0.5 and osoba.leviKuk.visibility > 0.5 and osoba.levaSaka.visibility > 0.5) ):
