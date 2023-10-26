@@ -60,10 +60,6 @@ option_menu["menu"].configure(
 )
 option_menu.grid(row=1, column=0)
 
-def get_video():
-    video = ''
-    video = 'videoSnimci/' + selected_option.get()
-    return str(video)
 
 
 # Button commands
@@ -90,6 +86,11 @@ photo = ImageTk.PhotoImage(image)
 image_label = tk.Label(main_frame, image=photo)
 image_label.grid(row=1, column=1, rowspan=20)
 
+def get_video():
+    video = ''
+    video = 'videoSnimci/' + selected_option.get()
+    return str(video)
+
 br=0
 x = 69
 def update():
@@ -100,17 +101,16 @@ def update():
         cap = cv2.VideoCapture(video)
         cap.set(cv2.CAP_PROP_POS_FRAMES, br)
         ret, frame = cap.read()
+        
+        sredjen = cucanj.squat_draw_yolo(frame)
+        
         if ret:
-            cv2.imwrite('strumf.png', frame)
+            cv2.imwrite('strumf.png', sredjen)
         else:
             print('Error: Frame not found')
             x=96
         cap.release()
-
-        sredjen = cucanj.squat_draw_yolo(frame)
         
-        #from numpy to image convert!!!!!
-
         updated_image = im.open("strumf.png")  
         updated_photo = ImageTk.PhotoImage(updated_image)
         image_label.configure(image=updated_photo)
@@ -120,10 +120,34 @@ def update():
             br=br+1
             root.after(150, update)
             x=69
-            
-            
 
+def update_noYOLO():
+        global br
+        global x
+        video = get_video()
+
+        cap = cv2.VideoCapture(video)
+        cap.set(cv2.CAP_PROP_POS_FRAMES, br)
+        ret, frame = cap.read()
         
+        sredjen = cucanj.squat_draw_yolo(frame)
+        
+        if ret:
+            cv2.imwrite('strumf.png', sredjen)
+        else:
+            print('Error: Frame not found')
+            x=96
+        cap.release()
+        
+        updated_image = im.open("strumf.png")  
+        updated_photo = ImageTk.PhotoImage(updated_image)
+        image_label.configure(image=updated_photo)
+        image_label.image = updated_photo
+
+        if(x == 69):
+            br=br+1
+            root.after(150, update)
+            x=69
 
 def update_loop_button():
     update()
