@@ -123,7 +123,7 @@ def update():
 
         if(x == 69):
             br=br+1
-            root.after(150, update)
+            root.after(1, update)
             x=69
 
 def update_noYOLO():
