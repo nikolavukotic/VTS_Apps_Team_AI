@@ -7,7 +7,7 @@ from PIL import Image as im
 
 def squat_draw_yolo(frame):
     
-    osoba = yolo.testYolo(frame) # Čitanje osobe sa frejma
+    osoba = yolo.ocitajOsobu(frame) # Čitanje osobe sa frejma
 
     if(osoba.levoKoleno.visibility > 0.5 and osoba.desnoKoleno.visibility > 0.5):
 

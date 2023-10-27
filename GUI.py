@@ -2,16 +2,7 @@ import tkinter as tk
 import cv2
 from colors import ColorPalette as colors
 import utils
-from tkinter import PhotoImage
 from PIL import Image as im, ImageTk
-import cucanj as squat_class
-import kolena as knees_class
-import letenje as fly_class
-import sklekovi as push_ups_class
-import trbusnjaci as abs_class
-import biceps as biceps_class
-import os
-import numpy as np
 
 root = tk.Tk()
 root.title("VTSFIT")
@@ -75,56 +66,35 @@ def get_video():
     return str(video)
 
 br=0
-x = 69
-
 def update():
         global br
-        global x
         video = get_video()
 
-        exw = video.split('/')
-        ex = exw[-1]
+        ex = utils.get_excersise_name(video)
+
         cap = cv2.VideoCapture(video)
         cap.set(cv2.CAP_PROP_POS_FRAMES, br)
         ret, frame = cap.read()
-
-        match ex:
-            case 'squatTrim.mp4':
-                sredjen = squat_class.squat_draw_yolo(frame)
-            case 'abs.mp4':
-                sredjen = abs_class.abs_draw_yolo(frame)
-            case 'biceps.mp4':
-                sredjen = biceps_class.biceps_draw_yolo(frame)
-            case 'push-ups.mp4':
-                sredjen = push_ups_class.pushups_draw_yolo(frame)
-            case 'flying.mp4':
-                sredjen = fly_class.fly_draw_yolo(frame)
-            case 'knees.mp4':
-                sredjen = knees_class.knees_draw_yolo(frame)
-
-        height, width, channels = sredjen.shape
         if ret:
-            if(width>height):
-                desired_width = 700
-                desired_height = 400
-            else:
-                desired_width = 460
-                desired_height = 720
-            new_image = cv2.resize(sredjen, (desired_width, desired_height))
-            new_image = im.fromarray(cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB))
-        else:
-            print('Error: Frame not found')
-            x=96
-        cap.release()
-        
-        updated_photo = ImageTk.PhotoImage(new_image)
-        image_label.configure(image=updated_photo)
-        image_label.image = updated_photo
+            frame_processed = utils.process_frame(frame,ex)
 
-        if(x == 69):
+            new_image=utils.resize_frame(frame_processed)
+            
+            cap.release()
+
+            updated_photo = ImageTk.PhotoImage(new_image)
+            image_label.configure(image=updated_photo)
+            image_label.image = updated_photo
+
             br=br+1
             root.after(1, update)
-            x=69
+        else:
+             print('frame not found')
+             br = 0
+             strumf=im.open('strumf.png')
+             updated_photo = ImageTk.PhotoImage(strumf)
+             image_label.configure(image=updated_photo)
+             image_label.image = updated_photo
 
 def update_noYOLO():
         global br
