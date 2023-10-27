@@ -4,7 +4,12 @@ from colors import ColorPalette as colors
 import utils
 from tkinter import PhotoImage
 from PIL import Image as im, ImageTk
-import cucanj
+import cucanj as squat_class
+import kolena as knees_class
+import letenje as fly_class
+import sklekovi as push_ups_class
+import trbusnjaci as abs_class
+import biceps as biceps_class
 import os
 import numpy as np
 
@@ -60,27 +65,6 @@ option_menu["menu"].configure(
 )
 option_menu.grid(row=1, column=0)
 
-
-
-# Button commands
-def command_one():
-    utils.cucanj(get_video())
-
-def command_two():
-    utils.letenje(get_video())
-
-def command_three():
-    utils.biceps(get_video())
-
-def command_four():
-    utils.trbusnjaci(get_video())
-
-def command_five():
-    utils.sklekovi(get_video())
-
-def command_six():
-    utils.kolena(get_video())
-
 image = im.open("strumf.png")
 photo = ImageTk.PhotoImage(image)
 image_label = tk.Label(main_frame, image=photo)
@@ -93,7 +77,7 @@ def get_video():
 
 br=0
 x = 69
-def update():
+def update(exercise):
         global br
         global x
         video = get_video()
@@ -102,13 +86,34 @@ def update():
         cap.set(cv2.CAP_PROP_POS_FRAMES, br)
         ret, frame = cap.read()
         
-        sredjen = cucanj.squat_draw_yolo(frame)
         
 
+        match exercise:
+            case 'squat':
+                sredjen = squat_class.squat_draw_yolo(frame)
+            case 'abs':
+                print('passssssssssss')
+                sredjen = abs_class.abs_draw_yolo(frame)
+            case 'biceps':
+                sredjen = biceps_class.biceps_draw_yolo(frame)
+            case 'pushups':
+                sredjen = push_ups_class.pushups_draw_yolo(frame)
+            case 'fly':
+                sredjen = fly_class.fly_draw_yolo(frame)
+            case 'knees':
+                sredjen = knees_class.knees_draw_yolo(frame)
+
+        height, width, channels = sredjen.shape
+        print(type(sredjen))
         
         if ret:
-            desired_width = 430
-            desired_height = 760
+            if(width>height):
+                desired_width = 700
+                desired_height = 400
+            else:
+                desired_width = 460
+                desired_height = 720
+
             new_image = cv2.resize(sredjen, (desired_width, desired_height))
             new_image = im.fromarray(cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB))
         else:
@@ -123,7 +128,7 @@ def update():
 
         if(x == 69):
             br=br+1
-            root.after(1, update)
+            root.after(1, update(exercise))
             x=69
 
 def update_noYOLO():
@@ -135,28 +140,57 @@ def update_noYOLO():
         cap.set(cv2.CAP_PROP_POS_FRAMES, br)
         ret, frame = cap.read()
         
-        sredjen = cucanj.squat_draw_yolo(frame)
+        #sredjen = cucanj.squat_draw_yolo(frame)
+        
+        
         
         if ret:
-            cv2.imwrite('strumf.png', sredjen)
+            desired_width = 430
+            desired_height = 760
+            new_image = cv2.resize(frame, (desired_width, desired_height))
+            new_image = im.fromarray(cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB))
+            print(type(new_image))
         else:
             print('Error: Frame not found')
             x=96
         cap.release()
         
-        updated_image = im.open("strumf.png")  
+        updated_image = new_image
         updated_photo = ImageTk.PhotoImage(updated_image)
         image_label.configure(image=updated_photo)
         image_label.image = updated_photo
 
         if(x == 69):
             br=br+1
-            root.after(150, update)
+            root.after(1, update_noYOLO)
             x=69
 
 def update_loop_button():
-    update()
+    update("abs")
 
+
+#funcion for buttons
+
+def squat_button_command():
+    update('squat')
+
+def biceps_button_command():
+    update('biceps')
+
+def pushups_button_command():
+    update('pushups')
+
+def abs_button_command():
+    update('abs')
+
+def fly_button_command():
+    update('fly')
+
+def knees_button_command():
+    update('knees')
+
+def temp():
+    pass
 
 # Buttons
 button_one_border = tk.Frame(
@@ -180,7 +214,7 @@ button_one = tk.Button(
                             height=2, 
                             border=0,
                             text='Cucanj',
-                            command=command_one                                   
+                            command=temp()                                
                             )
 
 button_one_border.grid(row=2, column=0, columnspan=1)
@@ -207,7 +241,7 @@ button_two = tk.Button(
                             height=2, 
                             border=0,
                             text='Letenje',
-                            command=command_two
+                            command=temp()   
 )
 
 button_two_border.grid(row=3, column=0, columnspan=1)
@@ -234,7 +268,7 @@ button_three = tk.Button(
                             height=2, 
                             border=0,
                             text='Biceps',
-                            command=command_three
+                            command=temp()   
                             )
 
 button_three_border.grid(row=4, column=0, columnspan=1)
@@ -261,7 +295,7 @@ button_four = tk.Button(
                             height=2, 
                             border=0,
                             text='Trbusnjaci',
-                            command=command_four
+                            command=temp()   
 )
 
 button_four_boarder.grid(row=5, column=0, columnspan=1)
@@ -288,7 +322,7 @@ button_five = tk.Button(
                             height=2, 
                             border=0,
                             text='Sklekovi',
-                            command=command_five
+                            command=temp()   
                             )
 
 button_five_border.grid(row=6, column=0, columnspan=1)
@@ -315,7 +349,7 @@ button_six = tk.Button(
                             height=2, 
                             border=0,
                             text='Kolena',
-                            command=command_six
+                            command=temp()   
 )
 
 button_six_boarder.grid(row=7, column=0, columnspan=1)

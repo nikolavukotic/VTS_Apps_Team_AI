@@ -30,29 +30,8 @@ def get_video_file_names(folder_path):
     return video_files
 
 
-def cucanj(video):
-   cap = cv2.VideoCapture(video)
-   #izracunajCucanj(cap)
 
-def letenje(video):
-   cap = cv2.VideoCapture(video)
-   izracunajLetenje(cap)
-
-def biceps(video):
-   cap = cv2.VideoCapture(video)
-   izracunajBiceps(cap)
-
-def trbusnjaci(video):
-   cap = cv2.VideoCapture(video)
-   izracunajTrbusnjaci(cap)
-
-def sklekovi(video):
-   cap = cv2.VideoCapture(video)
-   izracunajSklekovi(cap)
-
-def kolena(video):
-   cap = cv2.VideoCapture(video)
-   izracunajKolena(cap)
+   
 
 
 

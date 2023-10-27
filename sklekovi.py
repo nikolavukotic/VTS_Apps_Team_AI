@@ -4,11 +4,8 @@ from yolo import *
 import math
 
 
-def izracunajSklekovi(cap):
-    while True:
-        ret, frame = cap.read()  # Čitanje frejma sa kamere
-        if not ret:
-            break
+def pushups_draw_yolo(frame):
+    
 
         osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
         if(True):
@@ -104,9 +101,5 @@ def izracunajSklekovi(cap):
                         fontScale = 1.0,
                         color = (0, 0, 255),
                         thickness = 3)
-        cv2.imshow('VTSAssistant',frame)
-        
-        if cv2.waitKey(1) & 0xFF == 27:  # Esc taster za prekid petlje
-            break
-    cv2.destroyAllWindows()
+        return frame
     
