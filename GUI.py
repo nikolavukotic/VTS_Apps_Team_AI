@@ -77,30 +77,32 @@ def get_video():
 
 br=0
 x = 69
-def update(exercise):
+
+def update():
         global br
         global x
         video = get_video()
 
+        exw = video.split('/')
+        ex = exw[-1]
+        print(ex)
         cap = cv2.VideoCapture(video)
         cap.set(cv2.CAP_PROP_POS_FRAMES, br)
         ret, frame = cap.read()
-        
-        
 
-        match exercise:
-            case 'squat':
+        
+        match ex:
+            case 'squatTrim.mp4':
                 sredjen = squat_class.squat_draw_yolo(frame)
-            case 'abs':
-                print('passssssssssss')
+            case 'abs.mp4':
                 sredjen = abs_class.abs_draw_yolo(frame)
-            case 'biceps':
+            case 'biceps.mp4':
                 sredjen = biceps_class.biceps_draw_yolo(frame)
-            case 'pushups':
+            case 'push-ups.mp4':
                 sredjen = push_ups_class.pushups_draw_yolo(frame)
-            case 'fly':
+            case 'flying.mp4':
                 sredjen = fly_class.fly_draw_yolo(frame)
-            case 'knees':
+            case 'knees.mp4':
                 sredjen = knees_class.knees_draw_yolo(frame)
 
         height, width, channels = sredjen.shape
@@ -128,7 +130,7 @@ def update(exercise):
 
         if(x == 69):
             br=br+1
-            root.after(1, update(exercise))
+            root.after(1, update)
             x=69
 
 def update_noYOLO():
@@ -166,28 +168,7 @@ def update_noYOLO():
             x=69
 
 def update_loop_button():
-    update("abs")
-
-
-#funcion for buttons
-
-def squat_button_command():
-    update('squat')
-
-def biceps_button_command():
-    update('biceps')
-
-def pushups_button_command():
-    update('pushups')
-
-def abs_button_command():
-    update('abs')
-
-def fly_button_command():
-    update('fly')
-
-def knees_button_command():
-    update('knees')
+    update()
 
 def temp():
     pass
@@ -358,5 +339,5 @@ button_six.grid(column=0, row=0)
 button = tk.Button(main_frame, text="Click Me", command=update_loop_button)
 button.grid(row=7, column=2, columnspan=1)
 
-
+print('mrsbrate')
 root.mainloop()
