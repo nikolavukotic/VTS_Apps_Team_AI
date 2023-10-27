@@ -67,7 +67,7 @@ option_menu.grid(row=1, column=0)
 
 image = im.open("strumf.png")
 photo = ImageTk.PhotoImage(image)
-image_label = tk.Label(main_frame, image=photo)
+image_label = tk.Label(main_frame, image=photo, bd=0)
 image_label.grid(row=1, column=1, rowspan=20)
 
 def get_video():
