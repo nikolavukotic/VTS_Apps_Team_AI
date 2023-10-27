@@ -85,12 +85,10 @@ def update():
 
         exw = video.split('/')
         ex = exw[-1]
-        print(ex)
         cap = cv2.VideoCapture(video)
         cap.set(cv2.CAP_PROP_POS_FRAMES, br)
         ret, frame = cap.read()
 
-        
         match ex:
             case 'squatTrim.mp4':
                 sredjen = squat_class.squat_draw_yolo(frame)
@@ -106,8 +104,6 @@ def update():
                 sredjen = knees_class.knees_draw_yolo(frame)
 
         height, width, channels = sredjen.shape
-        print(type(sredjen))
-        
         if ret:
             if(width>height):
                 desired_width = 700
@@ -115,7 +111,6 @@ def update():
             else:
                 desired_width = 460
                 desired_height = 720
-
             new_image = cv2.resize(sredjen, (desired_width, desired_height))
             new_image = im.fromarray(cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB))
         else:
@@ -123,8 +118,7 @@ def update():
             x=96
         cap.release()
         
-        updated_image = new_image
-        updated_photo = ImageTk.PhotoImage(updated_image)
+        updated_photo = ImageTk.PhotoImage(new_image)
         image_label.configure(image=updated_photo)
         image_label.image = updated_photo
 
