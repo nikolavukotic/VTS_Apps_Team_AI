@@ -5,6 +5,7 @@ from yolo import *
 
 def abs_draw_yolo(frame):
    
+   
 
         osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
         if(True):

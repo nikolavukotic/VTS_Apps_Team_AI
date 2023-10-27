@@ -13,21 +13,15 @@ import biceps as biceps_class
 import os
 import numpy as np
 
-
-
 root = tk.Tk()
 root.title("VTSFIT")
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 screen_resolution = str(screen_width) + 'x' + str(screen_height)
+
 root.geometry(screen_resolution)
 root.state('zoomed')
 root.resizable(width=True, height=True)
-
-def close_window(event):
-    root.destroy()
-    print("mrs")
-root.bind("<Escape>", close_window)
 
 main_frame = tk.Frame(root, bg=colors.c1, pady=40)
 main_frame.pack(fill=tk.BOTH, expand=True)
@@ -38,6 +32,7 @@ logo_label.grid(row=0, column=0, padx=10, pady=10)
 
 folder_path = "videoSnimci"
 options_list = utils.get_video_file_names(folder_path)
+
 selected_option = tk.StringVar(main_frame) 
 selected_option.set("Izaberite video")
 option_menu = tk.OptionMenu(main_frame, selected_option, *options_list)
@@ -53,7 +48,6 @@ optionmenu_style = {
     "width": 12,
     "border": 0,
 }
-
 option_menu.configure(**optionmenu_style)
 option_menu["menu"].configure(
                             font = ('Arial', 16, 'bold'),
@@ -69,6 +63,11 @@ image = im.open("strumf.png")
 photo = ImageTk.PhotoImage(image)
 image_label = tk.Label(main_frame, image=photo, bd=0)
 image_label.grid(row=1, column=1, rowspan=20)
+
+def close_window(event):
+    root.destroy()
+    print("mrs")
+root.bind("<Escape>", close_window)
 
 def get_video():
     video = ''
@@ -332,6 +331,4 @@ button_six.grid(column=0, row=0)
 
 button = tk.Button(main_frame, text="Click Me", command=update_loop_button)
 button.grid(row=7, column=2, columnspan=1)
-
-print('mrsbrate')
 root.mainloop()

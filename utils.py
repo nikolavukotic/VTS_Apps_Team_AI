@@ -10,8 +10,6 @@ from trbusnjaci import *
 from sklekovi import *
 from kolena import *
 
-
-
 # Other
 
 def get_video_file_names(folder_path):
