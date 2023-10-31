@@ -10,30 +10,32 @@ def pushups_draw_yolo(frame):
         osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
         if(True):
 
-            sredinaRameX = (osoba.desnoRame.x+osoba.levoRame.x)/2
-            sredinaRameY = osoba.desnoRame.y
-            sredinaKukX = (osoba.desniKuk.x+osoba.leviKuk.x)/2
-            sredinaKukY = osoba.desniKuk.y
-            sredinaKolenoX = (osoba.desnoKoleno.x+osoba.levoKoleno.x)/2
-            sredinaKolenoY = osoba.desnoKoleno.y
-            sredinaStopaloX = (osoba.levoStopalo.x+osoba.desnoStopalo.x)/2
-            sredinaStopaloY = osoba.desnoStopalo.y
-
-            cv2.line(frame, (int(osoba.nos.x),int(osoba.nos.y)), (int(sredinaRameX),int(sredinaRameY)), (0,0,0), 3)
-            cv2.line(frame, (int(sredinaRameX),int(sredinaRameY)), (int(sredinaKukX),int(sredinaKukY)), (0,0,0), 3)
-            cv2.line(frame, (int(sredinaKukX),int(sredinaKukY)), (int(sredinaKolenoX),int(sredinaKolenoY)), (0,0,0), 3)
-            cv2.line(frame, (int(sredinaKolenoX),int(sredinaKolenoY)), (int(sredinaStopaloX),int(sredinaStopaloY)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.x)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.x)), (int(osoba.levoRame.x),int(osoba.levoRame.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (0,0,0), 3)
             
-            cv2.line(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (0,0,0), 3)
-           
-            cv2.circle(frame, (int(osoba.nos.x),int(osoba.nos.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(sredinaRameX),int(sredinaRameY)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(sredinaKukX),int(sredinaKukY)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(sredinaKolenoX),int(sredinaKolenoY)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(sredinaStopaloX),int(sredinaStopaloY)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.line(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.x)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.x)), (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.desnaSaka.x),int(osoba.desnaSaka.y)), (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (0,0,0), 3)
+            
+            cv2.circle(frame, (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.circle(frame, (int(osoba.desnaSaka.x),int(osoba.desnaSaka.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.circle(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.circle(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.circle(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.circle(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.circle(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.circle(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.circle(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.circle(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.circle(frame, (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.circle(frame, (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), radius=5, color=(255, 0, 0), thickness=5)
+
+            
              
          
             r=0

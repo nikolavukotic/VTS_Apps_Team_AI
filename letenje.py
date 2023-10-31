@@ -4,9 +4,11 @@ from yolo import *
 
 
 def fly_draw_yolo(frame):
-   
+    
+        
             
         osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
+
         if((osoba.desniLakat.visibility > 0.5 and osoba.desnoRame.visibility > 0.5 and osoba.desniKuk.visibility > 0.5 and osoba.desnaSaka.visibility > 0.5) or 
           ( osoba.leviLakat.visibility > 0.5 and osoba.levoRame.visibility > 0.5 and osoba.leviKuk.visibility > 0.5 and osoba.levaSaka.visibility > 0.5) ):
 
@@ -31,7 +33,7 @@ def fly_draw_yolo(frame):
             r=0
             g=0
             ugaoLevoRame = int(osoba.izracunajUgao(osoba.leviKuk,osoba.levoRame,osoba.leviLakat))
-            if(ugaoLevoRame > 85 and ugaoLevoRame < 95): 
+            if(ugaoLevoRame > 80 and ugaoLevoRame < 100): 
                 g=255 
             else: 
                 r=255
@@ -46,7 +48,7 @@ def fly_draw_yolo(frame):
             r=0
             g=0
             ugaoDesnoRame = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoRame,osoba.desniLakat))
-            if(ugaoDesnoRame > 85 and ugaoDesnoRame < 95): 
+            if(ugaoDesnoRame > 80 and ugaoDesnoRame < 100): 
                 g=255 
             else: 
                 r=255
@@ -59,7 +61,7 @@ def fly_draw_yolo(frame):
                         thickness = 3)
             
             ugaoLeviLakat = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviLakat,osoba.levaSaka))
-            if(ugaoLeviLakat > 25 and ugaoLeviLakat < 35): 
+            if(ugaoLeviLakat > 100 and ugaoLeviLakat < 150): 
                 g=255 
             else: 
                 r=255
@@ -75,7 +77,7 @@ def fly_draw_yolo(frame):
             g=0
 
             ugaoDesniLakat = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniLakat,osoba.desnaSaka))
-            if(ugaoDesniLakat > 25 and ugaoDesniLakat < 35): 
+            if(ugaoDesniLakat > 100 and ugaoDesniLakat < 150): 
                 g=255 
             else: 
                 r=255

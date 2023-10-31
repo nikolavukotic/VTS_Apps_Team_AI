@@ -35,7 +35,7 @@ def biceps_draw_yolo(frame):
             r=0
             g=0
             ugaoLevoRame = int(osoba.izracunajUgao(osoba.leviKuk,osoba.levoRame,osoba.leviLakat))
-            if(ugaoLevoRame > 0 and ugaoLevoRame < 10): 
+            if(ugaoLevoRame > 0 and ugaoLevoRame < 30): 
                 g=255 
             else: 
                 r=255
@@ -50,7 +50,7 @@ def biceps_draw_yolo(frame):
             r=0
             g=0
             ugaoDesnoRame = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoRame,osoba.desniLakat))
-            if(ugaoDesnoRame > 0 and ugaoDesnoRame < 10): 
+            if(ugaoDesnoRame > 0 and ugaoDesnoRame < 30): 
                 g=255 
             else: 
                 r=255
@@ -63,7 +63,7 @@ def biceps_draw_yolo(frame):
                         thickness = 3)
             
             ugaoLeviLakat = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviLakat,osoba.levaSaka))
-            if(ugaoLeviLakat > 5 and ugaoLeviLakat < 180): 
+            if(ugaoLeviLakat > 30 and ugaoLeviLakat < 190): 
                 g=255 
             else: 
                 r=255
@@ -79,7 +79,7 @@ def biceps_draw_yolo(frame):
             g=0
 
             ugaoDesniLakat = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniLakat,osoba.desnaSaka))
-            if(ugaoDesniLakat > 5 and ugaoDesniLakat < 180): 
+            if(ugaoDesniLakat > 30 and ugaoDesniLakat < 190): 
                 g=255 
             else: 
                 r=255

@@ -8,6 +8,7 @@ import letenje as fly_class
 import sklekovi as push_ups_class
 import trbusnjaci as abs_class
 import biceps as biceps_class
+import deadlift as deadlift_class
 
 
 def get_video_file_names(folder_path):
@@ -59,6 +60,9 @@ def process_frame(frame,ex):
                 return frame_processed
             case 'knees.mp4':
                 frame_processed = knees_class.knees_draw_yolo(frame)
+                return frame_processed
+            case 'Mrtvo dizanje.mp4':
+                frame_processed = deadlift_class.deadLift_draw_yolo(frame)
                 return frame_processed
     
 def get_excersise_name(video):

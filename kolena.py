@@ -58,13 +58,13 @@ def knees_draw_yolo(frame):
             r=0
             g=0
             ugaoDesnaStranaKoleno = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoKoleno,osoba.desnoStopalo))
-            if(ugaoDesnaStranaKoleno > 85 and ugaoDesnaStranaKoleno < 95): 
+            if(ugaoDesnaStranaKoleno > 80 and ugaoDesnaStranaKoleno < 100): 
                 g=255 
             else: 
                 r=255
             cv2.putText(frame,
-                        text = str(ugaoDesnaStranaKuk),
-                        org = (int(osoba.desnoRame.x)-100, int(osoba.desnoRame.y)+20),
+                        text = str(ugaoDesnaStranaKoleno),
+                        org = (int(osoba.desnoKoleno.x)-100, int(osoba.desnoKoleno.y)+20),
                         fontFace = cv2.FONT_HERSHEY_DUPLEX,
                         fontScale = 1.0,
                         color = (0, g, r),
@@ -72,13 +72,13 @@ def knees_draw_yolo(frame):
             r=0
             g=0
             ugaoLevaStranaKoleno = int(osoba.izracunajUgao(osoba.leviKuk,osoba.levoKoleno,osoba.levoStopalo))
-            if(ugaoLevaStranaKoleno > 85 and ugaoLevaStranaKoleno < 95): 
+            if(ugaoLevaStranaKoleno > 80 and ugaoLevaStranaKoleno < 100): 
                 g=255 
             else: 
                 r=255
             cv2.putText(frame,
-                        text = str(ugaoDesnaStranaKuk),
-                        org = (int(osoba.desnoRame.x)-100, int(osoba.desnoRame.y)+20),
+                        text = str(ugaoLevaStranaKoleno),
+                        org = (int(osoba.levoKoleno.x)-100, int(osoba.levoKoleno.y)+20),
                         fontFace = cv2.FONT_HERSHEY_DUPLEX,
                         fontScale = 1.0,
                         color = (0, g, r),

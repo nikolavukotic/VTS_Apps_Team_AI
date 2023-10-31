@@ -31,7 +31,7 @@ def abs_draw_yolo(frame):
             r=0
             g=0
             ugaoLevaStrana = int(osoba.izracunajUgao(osoba.levoStopalo,osoba.leviKuk,osoba.levoRame))
-            if(ugaoLevaStrana > 170 and ugaoLevaStrana < 90): 
+            if(ugaoLevaStrana > 100 and ugaoLevaStrana < 150): 
                 g=255 
             else: 
                 r=255
@@ -46,7 +46,7 @@ def abs_draw_yolo(frame):
             r=0
             g=0
             ugaoDesnaStrana = int(osoba.izracunajUgao(osoba.desnoStopalo,osoba.desniKuk,osoba.desnoRame))
-            if(ugaoDesnaStrana > 180 and ugaoDesnaStrana < 90): 
+            if(ugaoDesnaStrana > 100 and ugaoDesnaStrana < 150): 
                 g=255 
             else: 
                 r=255
