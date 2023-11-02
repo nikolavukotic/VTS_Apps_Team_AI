@@ -1,14 +1,17 @@
 import cv2
 from osoba import *
 from yolo import *
+from config import BicepsConfig
 
 
 
 def biceps_draw_yolo(frame):
     
 
+        
         osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
-        if(True):
+        pro = BicepsConfig.check(osoba)
+        if(pro == 1):
 
             cv2.line(frame, (int(osoba.desnaSaka.x),int(osoba.desnaSaka.y)), (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (0,0,0), 3)
@@ -35,7 +38,7 @@ def biceps_draw_yolo(frame):
             r=0
             g=0
             ugaoLevoRame = int(osoba.izracunajUgao(osoba.leviKuk,osoba.levoRame,osoba.leviLakat))
-            if(ugaoLevoRame > 0 and ugaoLevoRame < 30): 
+            if(ugaoLevoRame > BicepsConfig.angleLeftShoulderLower and ugaoLevoRame < BicepsConfig.angleLeftShoulderUpper): 
                 g=255 
             else: 
                 r=255
@@ -50,7 +53,7 @@ def biceps_draw_yolo(frame):
             r=0
             g=0
             ugaoDesnoRame = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoRame,osoba.desniLakat))
-            if(ugaoDesnoRame > 0 and ugaoDesnoRame < 30): 
+            if(ugaoDesnoRame > BicepsConfig.angleRightSoulderLower and ugaoDesnoRame < BicepsConfig.angleRightSoulderUpper): 
                 g=255 
             else: 
                 r=255
@@ -63,7 +66,7 @@ def biceps_draw_yolo(frame):
                         thickness = 3)
             
             ugaoLeviLakat = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviLakat,osoba.levaSaka))
-            if(ugaoLeviLakat > 30 and ugaoLeviLakat < 190): 
+            if(ugaoLeviLakat > BicepsConfig.angleLeftElbowLower and ugaoLeviLakat < BicepsConfig.angleLeftElbowUpper): 
                 g=255 
             else: 
                 r=255
@@ -79,7 +82,7 @@ def biceps_draw_yolo(frame):
             g=0
 
             ugaoDesniLakat = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniLakat,osoba.desnaSaka))
-            if(ugaoDesniLakat > 30 and ugaoDesniLakat < 190): 
+            if(ugaoDesniLakat > BicepsConfig.angleRightElbowLower and ugaoDesniLakat < BicepsConfig.angleRightElbowUpper): 
                 g=255 
             else: 
                 r=255

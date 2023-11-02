@@ -4,12 +4,13 @@ import yolo
 import math
 import numpy as np 
 from PIL import Image as im
+from config import SquatConfig
 
 def squat_draw_yolo(frame):
     
     osoba = yolo.ocitajOsobu(frame) # Čitanje osobe sa frejma
-
-    if(osoba.levoKoleno.visibility > 0.5 and osoba.desnoKoleno.visibility > 0.5):
+    pro = SquatConfig.check(osoba)
+    if(pro == 1):
 
             cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)
@@ -26,7 +27,7 @@ def squat_draw_yolo(frame):
             r=0
             g=0
             ugaoLevoKoleno = int(osoba.izracunajUgao(osoba.levoStopalo,osoba.levoKoleno,osoba.leviKuk))
-            if(ugaoLevoKoleno > 85): 
+            if(ugaoLevoKoleno > SquatConfig.angleLeftKneeUpper): 
                 g=255 
             else: 
                 r=255
@@ -41,7 +42,7 @@ def squat_draw_yolo(frame):
             r=0
             g=0
             ugaoDesnoKoleno = int(osoba.izracunajUgao(osoba.desnoStopalo,osoba.desnoKoleno,osoba.desniKuk))
-            if(ugaoDesnoKoleno > 85): 
+            if(ugaoDesnoKoleno > SquatConfig.angleRightKneeUpper): 
                 g=255 
             else: 
                 r=255
