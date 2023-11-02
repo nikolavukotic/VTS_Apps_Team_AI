@@ -1,12 +1,14 @@
 import cv2
 from osoba import *
 from yolo import *
+from config import KneesConfig
 
 
 def knees_draw_yolo(frame):
     
         osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
-        if(True):
+        pro = KneesConfig.check(osoba)
+        if(pro == 1):
 
             cv2.line(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (0,0,0), 3)
