@@ -1,3 +1,5 @@
+
+
 class ColorPalette:
     c1 = '#020f12'
     c2 = '#05d7ff'
