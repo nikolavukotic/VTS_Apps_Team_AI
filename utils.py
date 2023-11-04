@@ -2,13 +2,13 @@ import cv2
 import os
 from tkinter import PhotoImage
 from PIL import Image as im, ImageTk
-import cucanj as squat_class
-import kolena as knees_class
-import letenje as fly_class
-import sklekovi as push_ups_class
-import trbusnjaci as abs_class
-import biceps as biceps_class
-import deadlift as deadlift_class
+import cucanj as squat
+import kolena as knees
+import letenje as flying
+import sklekovi as pushups
+import trbusnjaci as abs
+import biceps as biceps
+import deadlift as deadlift
 
 
 def get_video_file_names(folder_path):
@@ -38,32 +38,37 @@ def resize_frame(frame_processed):
         
     new_image = cv2.resize(frame_processed, (desired_width, desired_height))
     new_image = im.fromarray(cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB))
-
+    print(type(new_image))
     return new_image
+#biceps, Cucanj #kolena(Mrtvo), Letenje #sklekovi, trbusnjaci
+def process_frame2(frame, exercise):
+    exercises = [biceps.biceps_draw_yolo, squat.squat_draw_yolo, knees.knees_draw_yolo, flying.fly_draw_yolo, pushups.pushups_draw_yolo, abs.abs_draw_yolo ]
+    processed_frame = exercises[exercise](frame)
+    return processed_frame
 
-def process_frame(frame,ex):
-     match ex:
-            case 'squatTrim.mp4':
-                frame_processed = squat_class.squat_draw_yolo(frame)
-                return frame_processed
-            case 'abs.mp4':
-                frame_processed = abs_class.abs_draw_yolo(frame)
-                return frame_processed
-            case 'biceps.mp4':
-                frame_processed = biceps_class.biceps_draw_yolo(frame)
-                return frame_processed
-            case 'push-ups.mp4':
-                frame_processed = push_ups_class.pushups_draw_yolo(frame)
-                return frame_processed
-            case 'flying.mp4':
-                frame_processed = fly_class.fly_draw_yolo(frame)
-                return frame_processed
-            case 'knees.mp4':
-                frame_processed = knees_class.knees_draw_yolo(frame)
-                return frame_processed
-            case 'Mrtvo dizanje.mp4':
-                frame_processed = deadlift_class.deadLift_draw_yolo(frame)
-                return frame_processed
+#def process_frame(frame,ex):
+#     match ex:
+#            case 'squatTrim.mp4':
+#                frame_processed = squat_class.squat_draw_yolo(frame)
+#                return frame_processed
+#            case 'abs.mp4':
+#                frame_processed = abs_class.abs_draw_yolo(frame)
+#                return frame_processed
+#            case 'biceps.mp4':
+#                frame_processed = biceps_class.biceps_draw_yolo(frame)
+#                return frame_processed
+#            case 'push-ups.mp4':
+#                frame_processed = push_ups_class.pushups_draw_yolo(frame)
+#                return frame_processed
+#            case 'flying.mp4':
+#                frame_processed = fly_class.fly_draw_yolo(frame)
+#                return frame_processed
+#            case 'knees.mp4':
+#                frame_processed = knees_class.knees_draw_yolo(frame)
+#                return frame_processed
+#            case 'Mrtvo dizanje.mp4':
+#                frame_processed = deadlift_class.deadLift_draw_yolo(frame)
+#                return frame_processed
     
 def get_excersise_name(video):
     exw = video.split('/')
