@@ -1,22 +1,28 @@
-class ColorPalette_old:
-    c1 = '#020f12'
-    c2 = '#05d7ff'
-    c3 = '#65e7ff'
-    c4 = 'BLACK'
-    c5 = 'WHITE'
-
 class ColorPalette:
-    background = '#1c1c22' #background gray
-    object = '#2a2a34' #object gray
-    accent = '#0e74bb' #VTS blue
-    c4 = 'BLACK'
+    background = '#1c1c22'
+    object = '#2a2a34'
+    accent = '#0e74bb'
     text = 'WHITE'
 
 class Size:
-    big = 100
-    medium = 40
-    small = 0
     padding = 10
     font = 25
 
-#e images width=445 height=240
+class Spacer:
+    source = 100
+    source_buttons = 0
+    exercise = 40
+    display = 20
+
+#TODO
+class Text:
+    size = 25
+    font = 'Arial'
+    format = 'bold'
+
+#TODO
+class Padding:
+    source = 0
+    source_buttons = 0
+    exercise = 0
+    display = 0

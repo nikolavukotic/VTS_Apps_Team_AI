@@ -1,7 +1,7 @@
 import cv2
 import os
-from tkinter import PhotoImage
 from PIL import Image as im, ImageTk
+
 import cucanj as squat
 import kolena as knees
 import letenje as flying
@@ -10,9 +10,8 @@ import trbusnjaci as abss
 import biceps as biceps
 import deadlift as deadlift
 
-
-def get_video_file_names(folder_path):
-
+def get_video_file_names():
+    folder_path = "videoSnimci"
     video_extensions = ['.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv', '.webm']
     video_files = []
 
@@ -23,37 +22,44 @@ def get_video_file_names(folder_path):
                     video_files.append(file)
     else:
         print("Folder does not exist or is not a directory.")
-
     return video_files
-
 
 def resize_frame(frame_processed):
     height, width, channels = frame_processed.shape
     
     if(width>height):
-        desired_width = 720
-        desired_height = 460
+        desired_width = 750
+        desired_height = 420
     else:
-        desired_width = 460
-        desired_height = 720
+        desired_width = 420
+        desired_height = 750
         
     new_image = cv2.resize(frame_processed, (desired_width, desired_height))
     new_image = im.fromarray(cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB))
-    new_image.save('gui_images/temp.png')
-    
-#biceps, Cucanj #kolena(Mrtvo), Letenje #sklekovi, trbusnjaci
-def process_frame2(frame, exercise):
-    exercises = [biceps.biceps_draw_yolo, squat.squat_draw_yolo, knees.knees_draw_yolo, flying.fly_draw_yolo, pushups.pushups_draw_yolo, abss.abs_draw_yolo ]
+    new_image.save('gui_images/display_frame.png')
+
+def process_frame(frame, exercise):
+    exercises = [squat.squat_draw_yolo, knees.knees_draw_yolo, pushups.pushups_draw_yolo, abss.abs_draw_yolo, biceps.biceps_draw_yolo, flying.fly_draw_yolo ]
     processed_frame = exercises[exercise](frame)
     return processed_frame
 
+def process_and_resize_frame(frame, exercise):
 
-def get_excersise_name(video):
-    exw = video.split('/')
-    ex = exw[-1]
-    return ex
+    exercises = [squat.squat_draw_yolo, knees.knees_draw_yolo, pushups.pushups_draw_yolo, abss.abs_draw_yolo, biceps.biceps_draw_yolo, flying.fly_draw_yolo ]
+    processed_frame = exercises[exercise](frame)
 
-
+    height, width, channels = processed_frame.shape
+    if(width>height):
+        desired_width = 750
+        desired_height = 420
+    else:
+        desired_width = 420
+        desired_height = 750
+        
+    new_image = cv2.resize(processed_frame, (desired_width, desired_height))
+    new_image = im.fromarray(cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB))
+    new_image.save('gui_images/display_frame.png')    
+    
 
    
 
