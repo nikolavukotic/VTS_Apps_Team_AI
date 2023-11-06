@@ -285,6 +285,7 @@ def create_display_frame(root, exercise_frame):
     vertical_label.grid(row=0, column=0)
 
     #UPDATE GOES HERE
+
     def update_display():
         global frame_counter
         global selected_video
@@ -295,11 +296,15 @@ def create_display_frame(root, exercise_frame):
         ret, frame = cap.read()
         if ret:
             processed_frame = utils.process_frame2(frame, selected_exercise)
-            resized_frame=utils.resize_frame(processed_frame)
 
-            updated_display = tk.PhotoImage(resized_frame)
-            #vertical_label.configure(image=updated_display)
-            vertical_label.image = updated_display
+            utils.resize_frame(processed_frame)
+            cap.release()
+
+            image = tk.PhotoImage(file="gui_images/temp.png")
+            cats_label = tk.Label(vertical_frame, image=image, borderwidth=0, relief="flat")
+            cats_label.image = image
+            cats_label.grid(row=0, column=0)
+
             frame_counter = frame_counter + 1
 
             root.after(1, update_display)
@@ -310,7 +315,8 @@ def create_display_frame(root, exercise_frame):
              vertical_label.configure(image=default_photo)
              vertical_label.image = default_photo      
              cap.release()
-    update_display()
+    button = tk.Button(display_frame, text="Click Me", command=update_display)
+    button.grid(row=4,column=1)
 
     #image = tk.PhotoImage(file="gui_images/temp.png")
     #vertical_label = tk.Label(display_frame, image=image, borderwidth=0, relief="flat")
