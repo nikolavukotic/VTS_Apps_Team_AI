@@ -6,6 +6,7 @@ from gui_config import Styles as st
 import utils
 import tkinter as tk
 import cv2
+import time
 
 selected_video = ''
 selected_exercise = 0
@@ -28,11 +29,57 @@ def select_existing_video(selected_option, root, source_frame):
     selected_video = 'videoSnimci/' + selected_option.get()
     create_exercise_frame(root, source_frame)
 
-def workout_live():
+def workout_live(selected_option, root, source_frame):
     pass
 
-def record_new_video():
-    pass 
+def record_new_video(root, source_frame):
+    global selected_video
+
+    cats = []  # Array to store captured frames
+    # Open the camera (camera index 0 by default, but you can change it if needed)
+    cap = cv2.VideoCapture(0)
+
+    start_time = time.time()  # Record the start time
+    while True:
+        ret, frame = cap.read()  # Read a frame from the camera
+
+        if not ret:
+            break  # Break the loop if no frame is captured
+
+        cats.append(frame)  # Append the frame to the "cats" array as a NumPy array
+
+        current_time = time.time()
+        elapsed_time = current_time - start_time
+
+        if elapsed_time >= 5:
+            break  # Stop capturing frames after 5 seconds
+
+    cap.release()  # Release the camera
+    cv2.destroyAllWindows()  # Close any OpenCV windows
+
+    # Define the shape of your images (original dimensions)
+    original_height, original_width = (750, 420)  # Adjust to your image dimensions
+
+    # List of images
+    images = cats
+
+    # Define the output video file
+    video_name = 'exercise_videos/new_videos/recorded_video.mp4'
+
+    # Define the codec and create a VideoWriter object
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(video_name, fourcc, 30, (420, 750))
+
+    # Resize and write the images to the video
+    for image in images:
+        # Resize the image to 250x250
+        resized_image = cv2.resize(image, (420, 750))
+        out.write(resized_image)
+    out.release()
+
+    selected_video = 'exercise_videos/new_videos/recorded_video.mp4'
+    create_exercise_frame(root, source_frame)
+
 
 def create_source_frame(root):
     source_frame = tk.Frame(root, bg=c.background)
@@ -70,7 +117,7 @@ def create_source_frame(root):
 
     button_two_border = tk.Frame(source_frame, st.button_frame)
     button_two = tk.Button(button_two_border, text='Vežbaj uživo', **st.source_button,
-                        command=lambda: workout_live())
+                        command=lambda: workout_live(selected_option, root, source_frame))
     button_two_border.grid(row=7, column=0, columnspan=1)
     button_two.grid(column=0, row=0)
 
@@ -79,7 +126,7 @@ def create_source_frame(root):
 
     button_three_border = tk.Frame(source_frame, st.button_frame)
     button_three = tk.Button(button_three_border, text='Snimi novi video', **st.source_button,
-                            command=lambda: record_new_video())
+                            command=lambda: record_new_video(root, source_frame))
     button_three_border.grid(row=9, column=0, columnspan=1)
     button_three.grid(row=0, column=0)
 
@@ -116,6 +163,8 @@ def create_exercise_frame(root, source_frame):
 #Display
 def create_display_frame(root, exercise_frame):
     exercise_frame.destroy()
+    print(selected_video)
+
 
     display_frame = tk.Frame(root, bg=c.background)
     display_frame.pack()

@@ -10,6 +10,9 @@ import trbusnjaci as abss
 import biceps as biceps
 import deadlift as deadlift
 
+import numpy as np
+import time
+
 def get_video_file_names():
     folder_path = "videoSnimci"
     video_extensions = ['.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv', '.webm']
@@ -43,6 +46,7 @@ def process_frame(frame, exercise):
     processed_frame = exercises[exercise](frame)
     return processed_frame
 
+#TODO
 def process_and_resize_frame(frame, exercise):
 
     exercises = [squat.squat_draw_yolo, knees.knees_draw_yolo, pushups.pushups_draw_yolo, abss.abs_draw_yolo, biceps.biceps_draw_yolo, flying.fly_draw_yolo ]
