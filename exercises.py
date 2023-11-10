@@ -482,7 +482,7 @@ def pushups_draw_yolo(frame):
             r=0
             g=0
             ugaoTeloDesno = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniKuk,osoba.desnoKoleno))
-            if(ugaoTeloLevo > PushUpsConfig.angleRightBodyLower and ugaoTeloDesno < PushUpsConfig.angleRightBoduUpper): 
+            if(ugaoTeloLevo > PushUpsConfig.angleRightBodyLower and ugaoTeloDesno < PushUpsConfig.angleRightBodyUpper): 
                 g=255 
             else: 
                 r=255
