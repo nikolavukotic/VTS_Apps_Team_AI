@@ -3,6 +3,8 @@ from osoba import *
 from yolo import ocitajOsobu
 from config import *
 
+#prba
+
 def biceps_draw_yolo(frame):
         
         osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
