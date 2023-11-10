@@ -6,7 +6,7 @@ import numpy as np
 import time
 
 def get_video_file_names():
-    folder_path = "videoSnimci"
+    folder_path = "exercise_videos/existing_videos/"
     video_extensions = ['.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv', '.webm']
     video_files = []
 

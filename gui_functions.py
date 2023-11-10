@@ -26,7 +26,7 @@ def create_logo(frame, spacer_pady, columnspan):
 #Soruce
 def select_existing_video(selected_option, root, source_frame):
     global selected_video
-    selected_video = 'videoSnimci/' + selected_option.get()
+    selected_video = 'exercise_videos/existing_videos/' + selected_option.get()
     create_exercise_frame(root, source_frame)
 
 def workout_live(selected_option, root, source_frame):
