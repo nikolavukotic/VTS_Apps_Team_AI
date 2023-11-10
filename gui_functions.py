@@ -1,8 +1,8 @@
-from gui_config import Colors as c
-from gui_config import Padding as p
-from gui_config import Spacer as sp
-from gui_config import Text as t
-from gui_config import Styles as st
+from config import Colors as c
+from config import Padding as p
+from config import Spacer as sp
+from config import Text as t
+from config import Styles as st
 import utils
 import tkinter as tk
 import cv2

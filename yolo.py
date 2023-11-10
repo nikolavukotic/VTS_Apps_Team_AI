@@ -1,6 +1,5 @@
 from ultralytics import YOLO
-from PIL import Image as im 
-from cucanj import *
+from PIL import Image as im
 from osoba import *
 
 model = YOLO('yolov8m-pose.pt')

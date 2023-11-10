@@ -5,6 +5,7 @@ class TackaNaTelu:
         self.x = tacka[0]
         self.y = tacka[1]
         self.visibility = tacka[2]
+
 class Osoba:
     def __init__(self, listaTacaka: list[list[float]]):
         self.nos = TackaNaTelu(listaTacaka[0])

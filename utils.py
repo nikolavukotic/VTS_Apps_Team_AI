@@ -1,15 +1,7 @@
 import cv2
 import os
 from PIL import Image as im, ImageTk
-
-import cucanj as squat
-import kolena as knees
-import letenje as flying
-import sklekovi as pushups
-import trbusnjaci as abss
-import biceps as biceps
-import deadlift as deadlift
-
+from exercises import exercizeList
 import numpy as np
 import time
 
@@ -42,15 +34,13 @@ def resize_frame(frame_processed):
     new_image.save('gui_images/display_frame.png')
 
 def process_frame(frame, exercise):
-    exercises = [squat.squat_draw_yolo, knees.knees_draw_yolo, pushups.pushups_draw_yolo, abss.abs_draw_yolo, biceps.biceps_draw_yolo, flying.fly_draw_yolo ]
-    processed_frame = exercises[exercise](frame)
+    processed_frame = exercizeList[exercise](frame)
     return processed_frame
 
 #TODO
 def process_and_resize_frame(frame, exercise):
 
-    exercises = [squat.squat_draw_yolo, knees.knees_draw_yolo, pushups.pushups_draw_yolo, abss.abs_draw_yolo, biceps.biceps_draw_yolo, flying.fly_draw_yolo ]
-    processed_frame = exercises[exercise](frame)
+    processed_frame = exercizeList[exercise](frame)
 
     height, width, channels = processed_frame.shape
     if(width>height):
