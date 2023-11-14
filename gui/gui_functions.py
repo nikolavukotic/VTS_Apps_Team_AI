@@ -16,7 +16,7 @@ def create_logo(frame, spacer_pady, columnspan):
     logo_label = tk.Label(frame, text="VTŠFIT", font=("Helvetica", 24, "bold"), background=c.background, foreground=c.accent)
     logo_label.grid(row=0, column=0, padx=10, pady=10, columnspan=columnspan)
 
-    image = tk.PhotoImage(file="gui_images/gui_line.png")
+    image = tk.PhotoImage(file="assets/gui_images/gui_line.png")
     image_label = tk.Label(frame, image=image, borderwidth=0, relief="flat")
     image_label.grid(row=1, column=0, columnspan=columnspan)
     
@@ -26,7 +26,7 @@ def create_logo(frame, spacer_pady, columnspan):
 #Soruce
 def select_existing_video(selected_option, root, source_frame):
     global selected_video
-    selected_video = 'exercise_videos/existing_videos/' + selected_option.get()
+    selected_video = 'assets/exercise_videos/existing_videos/' + selected_option.get()
     create_exercise_frame(root, source_frame)
 
 def workout_live(selected_option, root, source_frame):
@@ -148,7 +148,7 @@ def create_exercise_frame(root, source_frame):
     exercises_frame.grid(row=3, column=1, columnspan=3)
     exercise_images = []
     for i in range(1, 7):
-        image_path = f"gui_images/gui_exercises/gui_exercise_{i}.png"
+        image_path = f"assets/gui_images/gui_exercises/gui_exercise_{i}.png"
         exercise_image = tk.PhotoImage(file=image_path)
         exercise_images.append(exercise_image)
 
@@ -174,7 +174,7 @@ def create_display_frame(root, exercise_frame):
     vertical_frame = tk.Frame(display_frame, background=c.background)
     vertical_frame.grid(row=3, column=1)
 
-    default_image = tk.PhotoImage(file="gui_images/strumf.png")
+    default_image = tk.PhotoImage(file="assets/gui_images/strumf.png")
     vertical_label = tk.Label(vertical_frame, image=default_image, borderwidth=0, relief="flat")
     vertical_label.image = default_image
     vertical_label.grid(row=0, column=0)
@@ -190,7 +190,7 @@ def create_display_frame(root, exercise_frame):
             utils.resize_frame(processed_frame)
             cap.release()
 
-            image = tk.PhotoImage(file="gui_images/display_frame.png")
+            image = tk.PhotoImage(file="assets/gui_images/display_frame.png")
             display_label = tk.Label(vertical_frame, image=image, borderwidth=0, relief="flat")
             display_label.image = image
             display_label.grid(row=0, column=0)

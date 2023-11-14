@@ -6,7 +6,7 @@ import numpy as np
 import time
 
 def get_video_file_names():
-    folder_path = "exercise_videos/existing_videos/"
+    folder_path = "assets/exercise_videos/existing_videos"
     video_extensions = ['.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv', '.webm']
     video_files = []
 
@@ -31,7 +31,7 @@ def resize_frame(frame_processed):
         
     new_image = cv2.resize(frame_processed, (desired_width, desired_height))
     new_image = im.fromarray(cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB))
-    new_image.save('gui_images/display_frame.png')
+    new_image.save('assets/gui_images/display_frame.png')
 
 def process_frame(frame, exercise):
     processed_frame = exercizeList[exercise](frame)
