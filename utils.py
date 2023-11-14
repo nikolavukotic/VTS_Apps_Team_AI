@@ -31,7 +31,7 @@ def resize_frame(frame_processed):
         
     new_image = cv2.resize(frame_processed, (desired_width, desired_height))
     new_image = im.fromarray(cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB))
-    new_image.save('assets/gui_images/display_frame.png')
+    new_image.save('assets/temp_images/display_frame.png')
 
 def process_frame(frame, exercise):
     processed_frame = exercizeList[exercise](frame)
