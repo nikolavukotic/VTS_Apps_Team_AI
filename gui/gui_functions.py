@@ -10,7 +10,6 @@ import os
 import time
 import cv2
 
-
 selected_video = ''
 selected_exercise = 0
 frame_counter = 0
@@ -35,6 +34,7 @@ def select_existing_video(selected_option, root, source_frame):
 def workout_live(selected_option, root, source_frame):
     pass
 
+#TODO
 def record_new_video(root, source_frame):
     global selected_video
 
