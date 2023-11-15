@@ -1,7 +1,7 @@
 import cv2
-from osoba import *
-from yolo import ocitajOsobu
-from config import *
+from yolo_processing.osoba import *
+from yolo_processing.yolo import ocitajOsobu
+from yolo_processing.config import *
 
 #prba
 
@@ -574,7 +574,7 @@ def abs_draw_yolo(frame):
                         thickness = 3)
         return frame
     
-exercizeList = [squat_draw_yolo, biceps_draw_yolo, pushups_draw_yolo, abs_draw_yolo, deadLift_draw_yolo, fly_draw_yolo, knees_draw_yolo ]
+exerciseList = [squat_draw_yolo, biceps_draw_yolo, pushups_draw_yolo, abs_draw_yolo, deadLift_draw_yolo, fly_draw_yolo, knees_draw_yolo ]
 
 #0 squat
 #1 biceps
@@ -583,3 +583,19 @@ exercizeList = [squat_draw_yolo, biceps_draw_yolo, pushups_draw_yolo, abs_draw_y
 #4 deadlift
 #5 fly
 #6 knees
+
+def run_yolo(frame, exercise):
+
+    processed_frame = exerciseList[exercise](frame)
+
+    height, width, channels = processed_frame.shape
+    if(width>height):
+        desired_width = 750
+        desired_height = 420
+    else:
+        desired_width = 420
+        desired_height = 750
+        
+    new_image = cv2.resize(processed_frame, (desired_width, desired_height))
+    new_image = im.fromarray(cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB))
+    new_image.save('assets/temporary_images/display_frame.png')

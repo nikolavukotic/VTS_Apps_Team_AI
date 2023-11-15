@@ -1,3 +1,3 @@
-from gui import gui_main
+from gui.gui_main import run_gui
 
-gui_main.run_gui()
+run_gui()
