@@ -6,7 +6,7 @@ from testing import test_functions
 from yolo_processing.exercises import run_yolo
 
 #To run a test:
-#   1. Add "from testing.test_main import run_test" at the top for main.py
+#   1. Add "from testing.test_main import run_test" at the top of main.py
 #   2. Call the function run_test() in main.py
 #   3. Delete run_gui() in main.py
 
