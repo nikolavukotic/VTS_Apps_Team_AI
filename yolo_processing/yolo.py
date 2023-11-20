@@ -1,8 +1,8 @@
 from ultralytics import YOLO
 from PIL import Image as im
-from osoba import *
+from yolo_processing.osoba import *
 
-model = YOLO('yolov8m-pose.pt')
+model = YOLO('yolo_processing/yolov8m-pose.pt')
 
 def ocitajOsobu(frame):
     results = model(source=im.fromarray(frame)) 

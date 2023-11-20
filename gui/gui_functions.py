@@ -1,12 +1,14 @@
-from config import Colors as c
-from config import Padding as p
-from config import Spacer as sp
-from config import Text as t
-from config import Styles as st
-import utils
+from gui.gui_config import Colors as c
+from gui.gui_config import Padding as p
+from gui.gui_config import Spacer as sp
+from gui.gui_config import Text as t
+from gui.gui_config import Styles as st
+from yolo_processing.exercises import run_yolo
+
 import tkinter as tk
-import cv2
+import os
 import time
+import cv2
 
 selected_video = ''
 selected_exercise = 0
@@ -16,7 +18,7 @@ def create_logo(frame, spacer_pady, columnspan):
     logo_label = tk.Label(frame, text="VTŠFIT", font=("Helvetica", 24, "bold"), background=c.background, foreground=c.accent)
     logo_label.grid(row=0, column=0, padx=10, pady=10, columnspan=columnspan)
 
-    image = tk.PhotoImage(file="gui_images/gui_line.png")
+    image = tk.PhotoImage(file="assets/gui_images/gui_line.png")
     image_label = tk.Label(frame, image=image, borderwidth=0, relief="flat")
     image_label.grid(row=1, column=0, columnspan=columnspan)
     
@@ -26,12 +28,13 @@ def create_logo(frame, spacer_pady, columnspan):
 #Soruce
 def select_existing_video(selected_option, root, source_frame):
     global selected_video
-    selected_video = 'exercise_videos/existing_videos/' + selected_option.get()
+    selected_video = 'assets/exercise_videos/existing_videos/' + selected_option.get()
     create_exercise_frame(root, source_frame)
 
 def workout_live(selected_option, root, source_frame):
     pass
 
+#TODO
 def record_new_video(root, source_frame):
     global selected_video
 
@@ -80,6 +83,19 @@ def record_new_video(root, source_frame):
     selected_video = 'exercise_videos/new_videos/recorded_video.mp4'
     create_exercise_frame(root, source_frame)
 
+def get_existing_videos():
+    folder_path = "assets/exercise_videos/existing_videos"
+    video_extensions = ['.mp4', '.avi', '.mkv', '.mov', '.wmv', '.flv', '.webm']
+    video_files = []
+
+    if os.path.exists(folder_path) and os.path.isdir(folder_path):
+        for root, dirs, files in os.walk(folder_path):
+            for file in files:
+                if any(file.endswith(ext) for ext in video_extensions):
+                    video_files.append(file)
+    else:
+        print("Folder does not exist or is not a directory.")
+    return video_files
 
 def create_source_frame(root):
     source_frame = tk.Frame(root, bg=c.background)
@@ -87,7 +103,7 @@ def create_source_frame(root):
     source_frame.pack(fill=tk.BOTH, expand=True)
     create_logo(source_frame, sp.source, 1)
 
-    options_list = utils.get_video_file_names()
+    options_list = get_existing_videos()
     selected_option = tk.StringVar(source_frame)
     selected_option.set("Izaberite video")
     option_menu = tk.OptionMenu(source_frame, selected_option, *options_list)
@@ -148,7 +164,7 @@ def create_exercise_frame(root, source_frame):
     exercises_frame.grid(row=3, column=1, columnspan=3)
     exercise_images = []
     for i in range(1, 7):
-        image_path = f"gui_images/gui_exercises/gui_exercise_{i}.png"
+        image_path = f"assets/gui_images/gui_exercises/gui_exercise_{i}.png"
         exercise_image = tk.PhotoImage(file=image_path)
         exercise_images.append(exercise_image)
 
@@ -161,6 +177,7 @@ def create_exercise_frame(root, source_frame):
         exercise_label.bind("<Button-1>", lambda event, i=i: select_exercise(i, root, exercise_frame))   
 
 #Display
+
 def create_display_frame(root, exercise_frame):
     exercise_frame.destroy()
     print(selected_video)
@@ -174,7 +191,7 @@ def create_display_frame(root, exercise_frame):
     vertical_frame = tk.Frame(display_frame, background=c.background)
     vertical_frame.grid(row=3, column=1)
 
-    default_image = tk.PhotoImage(file="gui_images/strumf.png")
+    default_image = tk.PhotoImage(file="assets/gui_images/strumf.png")
     vertical_label = tk.Label(vertical_frame, image=default_image, borderwidth=0, relief="flat")
     vertical_label.image = default_image
     vertical_label.grid(row=0, column=0)
@@ -186,11 +203,10 @@ def create_display_frame(root, exercise_frame):
         cap.set(cv2.CAP_PROP_POS_FRAMES, frame_counter)
         ret, frame = cap.read()
         if ret:
-            processed_frame = utils.process_frame(frame, selected_exercise)
-            utils.resize_frame(processed_frame)
+            run_yolo(frame, selected_exercise)
             cap.release()
 
-            image = tk.PhotoImage(file="gui_images/display_frame.png")
+            image = tk.PhotoImage(file="assets/temporary_images/display_frame.png")
             display_label = tk.Label(vertical_frame, image=image, borderwidth=0, relief="flat")
             display_label.image = image
             display_label.grid(row=0, column=0)
