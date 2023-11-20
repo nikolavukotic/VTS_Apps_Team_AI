@@ -3,14 +3,26 @@ from yolo_processing.osoba import *
 from yolo_processing.yolo import ocitajOsobu
 from yolo_processing.config import *
 
-#prba
+message = ""
+erHandler = 0
 
+
+#done
 def biceps_draw_yolo(frame):
         
         osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
         pro = BicepsConfig.check(osoba)
-        if(pro == 1):
-
+        if(pro == 3):
+            both = True
+        else:
+            both = False
+        
+        if(pro == 1 or both):
+            message = "nastavite..."
+            erHandler = 0
+            print('desna strana radi')
+            print(both)
+            
             cv2.line(frame, (int(osoba.desnaSaka.x),int(osoba.desnaSaka.y)), (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
@@ -21,6 +33,51 @@ def biceps_draw_yolo(frame):
             cv2.circle(frame, (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), radius=5, color=(255, 0, 0), thickness=5)
             cv2.circle(frame, (int(osoba.desnaSaka.x),int(osoba.desnaSaka.y)), radius=5, color=(255, 0, 0), thickness=5)
             cv2.circle(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
+            
+            r=0
+            g=0
+            b=0
+            ugaoDesnoRame = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoRame,osoba.desniLakat))
+            if(ugaoDesnoRame > BicepsConfig.angleRightShoulderLower and ugaoDesnoRame < BicepsConfig.angleRightShoulderUpper): 
+                g=0
+                b=255
+                if(ugaoDesnoRame < BicepsConfig.angleRightShoulderLimitGreen):
+                    g=255
+                    b=0
+            else: 
+                r=255
+            cv2.putText(frame,
+                        text = str(ugaoDesnoRame),
+                        org = (int(osoba.desnoRame.x)-100, int(osoba.desnoRame.y)+20),
+                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                        fontScale = 1.0,
+                        color = (b, g, r),
+                        thickness = 3)
+            r=0
+            g=0
+            b=0
+            ugaoDesniLakat = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniLakat,osoba.desnaSaka))
+            if(ugaoDesniLakat > BicepsConfig.angleRightElbowLower and ugaoDesniLakat < BicepsConfig.angleRightElbowUpper): 
+                g=0
+                b=255
+                if(ugaoDesniLakat <= BicepsConfig.angleRightElbowLimitGreen):
+                    g=255
+                    b=0
+            else: 
+                r=255
+            cv2.putText(frame,
+                        text = str(ugaoDesniLakat),
+                        org = (int(osoba.desniLakat.x)-100, int(osoba.desniLakat.y)+20),
+                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                        fontScale = 1.0,
+                        color = (b, g, r),
+                        thickness = 3)
+
+        if(pro == 2 or both):
+            message = "nastavite..."
+            erHandler = 0   
+            print('leva strana radi')
+            print(both)
             
             cv2.line(frame, (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (int(osoba.levoRame.x),int(osoba.levoRame.y)), (0,0,0), 3)
@@ -35,9 +92,14 @@ def biceps_draw_yolo(frame):
             
             r=0
             g=0
+            b=0
             ugaoLevoRame = int(osoba.izracunajUgao(osoba.leviKuk,osoba.levoRame,osoba.leviLakat))
             if(ugaoLevoRame > BicepsConfig.angleLeftShoulderLower and ugaoLevoRame < BicepsConfig.angleLeftShoulderUpper): 
-                g=255 
+                g=0
+                b=255
+                if(ugaoLevoRame < BicepsConfig.angleLeftShoulderLimitGreen):
+                    g=255
+                    b=0
             else: 
                 r=255
             cv2.putText(frame,
@@ -45,27 +107,18 @@ def biceps_draw_yolo(frame):
                         org = (int(osoba.levoRame.x)+20, int(osoba.levoRame.y)+20),
                         fontFace = cv2.FONT_HERSHEY_DUPLEX,
                         fontScale = 1.0,
-                        color = (0, g, r),
+                        color = (b, g, r),
                         thickness = 3)
-            
             r=0
             g=0
-            ugaoDesnoRame = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoRame,osoba.desniLakat))
-            if(ugaoDesnoRame > BicepsConfig.angleRightSoulderLower and ugaoDesnoRame < BicepsConfig.angleRightSoulderUpper): 
-                g=255 
-            else: 
-                r=255
-            cv2.putText(frame,
-                        text = str(ugaoDesnoRame),
-                        org = (int(osoba.desnoRame.x)-100, int(osoba.desnoRame.y)+20),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, g, r),
-                        thickness = 3)
-            
+            b=0    
             ugaoLeviLakat = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviLakat,osoba.levaSaka))
             if(ugaoLeviLakat > BicepsConfig.angleLeftElbowLower and ugaoLeviLakat < BicepsConfig.angleLeftElbowUpper): 
-                g=255 
+                g=0
+                b=255
+                if(ugaoLeviLakat <= BicepsConfig.angleLeftElbowLimitGreen):
+                    g=255
+                    b=0
             else: 
                 r=255
             cv2.putText(frame,
@@ -73,95 +126,83 @@ def biceps_draw_yolo(frame):
                         org = (int(osoba.leviLakat.x)+20, int(osoba.leviLakat.y)+20),
                         fontFace = cv2.FONT_HERSHEY_DUPLEX,
                         fontScale = 1.0,
-                        color = (0, g, r),
+                        color = (b, g, r),
                         thickness = 3)
-            
-            r=0
-            g=0
-
-            ugaoDesniLakat = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniLakat,osoba.desnaSaka))
-            if(ugaoDesniLakat > BicepsConfig.angleRightElbowLower and ugaoDesniLakat < BicepsConfig.angleRightElbowUpper): 
-                g=255 
-            else: 
-                r=255
-            cv2.putText(frame,
-                        text = str(ugaoDesniLakat),
-                        org = (int(osoba.desniLakat.x)-100, int(osoba.desniLakat.y)+20),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, g, r),
-                        thickness = 3)
-        else:
-            cv2.putText(frame,
-                        text = str("budite sigurni da ste lepo zauzeli polozaj"),
-                        org = (0,200),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, 0, 255),
-                        thickness = 3)
-        if(pro == 2):
-            errorMessage = 'neke tacke nisu vidljive na yolu, popravite polozaj'
+        if(pro == 0):
+           message = "budite sigurni da ste lepo zauzeli polozaj, neki delovi tela nisu vidljivi"
+           erHandler = 1
 
         return frame
-
+#done
 def squat_draw_yolo(frame):
     
     osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
     pro = SquatConfig.check(osoba)
-    if(pro == 1):
-
-            cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)
-            cv2.circle(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
-            
-            cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
-            cv2.circle(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
-
-            r=0
-            g=0
-            ugaoLevoKoleno = int(osoba.izracunajUgao(osoba.levoStopalo,osoba.levoKoleno,osoba.leviKuk))
-            if(ugaoLevoKoleno > SquatConfig.angleLeftKneeUpper): 
-                g=255 
-            else: 
-                r=255
-            cv2.putText(frame,
-                        text = str(ugaoLevoKoleno),
-                        org = (int(osoba.levoKoleno.x)+20, int(osoba.levoKoleno.y)+20),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, g, r),
-                        thickness = 3)
-            
-            r=0
-            g=0
-            ugaoDesnoKoleno = int(osoba.izracunajUgao(osoba.desnoStopalo,osoba.desnoKoleno,osoba.desniKuk))
-            if(ugaoDesnoKoleno > SquatConfig.angleRightKneeUpper): 
-                g=255 
-            else: 
-                r=255
-            cv2.putText(frame,
-                        text = str(ugaoDesnoKoleno),
-                        org = (int(osoba.desnoKoleno.x)-100, int(osoba.desnoKoleno.y)+20),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, g, r),
-                        thickness = 3)
+    if(pro == 3):
+        both = True
     else:
+        both = False
+    if(pro == 1 or both):
+        message = "nastavite..."
+        erHandler = 0 
+        cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), (0,0,0), 3)
+        cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
+        cv2.circle(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
+
+        r=0 
+        g=0
+        b=0
+        ugaoDesnoKoleno = int(osoba.izracunajUgao(osoba.desnoStopalo,osoba.desnoKoleno,osoba.desniKuk))
+        if(ugaoDesnoKoleno > SquatConfig.angleLeftKneeLimitBlue):
+            b=255
+            g=0
+        elif(ugaoDesnoKoleno > SquatConfig.angleLeftKneeLimitGreen):
+            g=255
+            b=0
+        else: 
+            r=255
         cv2.putText(frame,
-            text = str("budite sigurni da ste lepo zauzeli polozaj"),
-            org = (0,0),
-            fontFace = cv2.FONT_HERSHEY_DUPLEX,
-            fontScale = 1.0,
-            color = (0, 0, 255),
-            thickness = 3)
+                    text = str(ugaoDesnoKoleno),
+                    org = (int(osoba.desnoKoleno.x)-200, int(osoba.desnoKoleno.y)+20),
+                    fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                    fontScale = 1.3,
+                    color = (b, g, r),
+                    thickness = 3)
+
+    if(pro == 2 or both):
+        message = "nastavite..."
+        erHandler = 0
+        cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (0,0,0), 3)
+        cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)
+        cv2.circle(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
+
+        r=0
+        g=0
+        b=0
+        ugaoLevoKoleno = int(osoba.izracunajUgao(osoba.levoStopalo,osoba.levoKoleno,osoba.leviKuk))
+        if(ugaoLevoKoleno > SquatConfig.angleLeftKneeLimitBlue):
+            b=255
+            g=0
+        elif(ugaoLevoKoleno > SquatConfig.angleLeftKneeLimitGreen):
+            g=255
+            b=0
+        else: 
+            r=255
+        cv2.putText(frame,
+                    text = str(ugaoLevoKoleno),
+                    org = (int(osoba.levoKoleno.x)+20, int(osoba.levoKoleno.y)+20),
+                    fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                    fontScale = 1.3,
+                    color = (b, g, r),
+                    thickness = 3) 
     
-    if(pro == 2):
-            errorMessage = 'neke tacke nisu vidljive na yolu, popravite polozaj'
+    if(pro == 3):
+        message = "budite sigurni da ste lepo zauzeli polozaj, neki delovi tela nisu vidljivi"
+        erHandler = 1
 
     return frame
 
@@ -304,15 +345,19 @@ def knees_draw_yolo(frame):
             errorMessage = 'neke tacke nisu vidljive na yolu, popravite polozaj'
 
         return frame
-
+#done
 def fly_draw_yolo(frame):
     
         
             
         osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
         pro = FlyConfig.check(osoba)
-
-        if(pro == 1):
+        if(pro == 3):
+            both = True
+        else:
+            both = False
+        
+        if(pro == 1 or both):
 
             cv2.line(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (0,0,0), 3)
@@ -322,7 +367,43 @@ def fly_draw_yolo(frame):
             cv2.circle(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), radius=5, color=(255, 0, 0), thickness=5)
             cv2.circle(frame, (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), radius=5, color=(255, 0, 0), thickness=5)
             cv2.circle(frame, (int(osoba.desnaSaka.x),int(osoba.desnaSaka.y)), radius=5, color=(255, 0, 0), thickness=5)
-        
+            
+            r=0
+            g=0
+            b=0
+            ugaoDesnoRame = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoRame,osoba.desniLakat))
+            if(ugaoDesnoRame > FlyConfig.angleRightShoulderLower and ugaoDesnoRame < FlyConfig.angleRightShoulderUpper): 
+                g=0
+                b=255
+            if(ugaoDesnoRame >= FlyConfig.angleRightShoulderLimitGreenL and ugaoDesnoRame <= FlyConfig.angleRightShoulderLimitGreenU):
+                    g=255
+                    b=0
+            else: 
+                r=255
+            cv2.putText(frame,
+                        text = str(ugaoDesnoRame),
+                        org = (int(osoba.desnoRame.x)-100, int(osoba.desnoRame.y)+20),
+                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                        fontScale = 1.0,
+                        color = (b, g, r),
+                        thickness = 3)
+            r=0
+            g=0
+            b=0
+            ugaoDesniLakat = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniLakat,osoba.desnaSaka))
+            if(ugaoDesniLakat > FlyConfig.angleRightElbowLower  and ugaoDesniLakat < FlyConfig.angleLeftElbowUpper): 
+                g=255 
+            else: 
+                r=255
+            cv2.putText(frame,
+                        text = str(ugaoDesniLakat),
+                        org = (int(osoba.desniLakat.x)-100, int(osoba.desniLakat.y)+20),
+                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                        fontScale = 1.0,
+                        color = (b, g, r),
+                        thickness = 3)
+            
+        if(pro == 2 or both):
             cv2.line(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (int(osoba.levoRame.x),int(osoba.levoRame.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), (0,0,0), 3)
@@ -334,9 +415,14 @@ def fly_draw_yolo(frame):
         
             r=0
             g=0
+            b=0
             ugaoLevoRame = int(osoba.izracunajUgao(osoba.leviKuk,osoba.levoRame,osoba.leviLakat))
             if(ugaoLevoRame > FlyConfig.angleLeftShoulderLower and ugaoLevoRame < FlyConfig.angleRightShoulderUpper): 
-                g=255 
+                g=0
+                b=255
+            if(ugaoLevoRame >= FlyConfig.angleLeftShoulderLimitGreenL and ugaoLevoRame <= FlyConfig.angleLeftShoulderLimitGreenU): 
+                    g=255
+                    b=0
             else: 
                 r=255
             cv2.putText(frame,
@@ -344,24 +430,13 @@ def fly_draw_yolo(frame):
                         org = (int(osoba.levoRame.x)+20, int(osoba.levoRame.y)+20),
                         fontFace = cv2.FONT_HERSHEY_DUPLEX,
                         fontScale = 1.0,
-                        color = (0, g, r),
+                        color = (b, g, r),
                         thickness = 3)
             
+           
             r=0
             g=0
-            ugaoDesnoRame = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoRame,osoba.desniLakat))
-            if(ugaoDesnoRame > FlyConfig.angleRightShoulderLower and ugaoDesnoRame < FlyConfig.angleRightShoulderUpper): 
-                g=255 
-            else: 
-                r=255
-            cv2.putText(frame,
-                        text = str(ugaoDesnoRame),
-                        org = (int(osoba.desnoRame.x)-100, int(osoba.desnoRame.y)+20),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, g, r),
-                        thickness = 3)
-            
+            b=0
             ugaoLeviLakat = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviLakat,osoba.levaSaka))
             if(ugaoLeviLakat > FlyConfig.angleLeftElbowLower and ugaoLeviLakat < FlyConfig.angleLeftElbowUpper): 
                 g=255 
@@ -372,34 +447,13 @@ def fly_draw_yolo(frame):
                         org = (int(osoba.leviLakat.x)+20, int(osoba.leviLakat.y)+20),
                         fontFace = cv2.FONT_HERSHEY_DUPLEX,
                         fontScale = 1.0,
-                        color = (0, g, r),
+                        color = (b, g, r),
                         thickness = 3)
-            
-            r=0
-            g=0
+        
+        if(pro == 0):
+           message = "budite sigurni da ste lepo zauzeli polozaj, neki delovi tela nisu vidljivi"
+           erHandler = 1
 
-            ugaoDesniLakat = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniLakat,osoba.desnaSaka))
-            if(ugaoDesniLakat > FlyConfig.angleRightElbowLower  and ugaoDesniLakat < FlyConfig.angleLeftElbowUpper): 
-                g=255 
-            else: 
-                r=255
-            cv2.putText(frame,
-                        text = str(ugaoDesniLakat),
-                        org = (int(osoba.desniLakat.x)-100, int(osoba.desniLakat.y)+20),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, g, r),
-                        thickness = 3)
-        else:
-            cv2.putText(frame,
-                        text = str("budite sigurni da ste lepo zauzeli polozaj"),
-                        org = (0,200),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, 0, 255),
-                        thickness = 3)
-        if(pro == 2):
-            errorMessage = 'neke tacke nisu vidljive na yolu, popravite polozaj'
 
         return frame
     
@@ -574,19 +628,20 @@ def abs_draw_yolo(frame):
                         thickness = 3)
         return frame
     
-exerciseList = [squat_draw_yolo, biceps_draw_yolo, pushups_draw_yolo, abs_draw_yolo, deadLift_draw_yolo, fly_draw_yolo, knees_draw_yolo ]
+exerciseList = [squat_draw_yolo,deadLift_draw_yolo, pushups_draw_yolo, abs_draw_yolo,biceps_draw_yolo , fly_draw_yolo, knees_draw_yolo ]
 
 #0 squat
-#1 biceps
+#1 deadLift
 #2 pushups
 #3 abs
-#4 deadlift
+#4 biceps
 #5 fly
 #6 knees
 
 def run_yolo(frame, exercise):
 
     processed_frame = exerciseList[exercise](frame)
+    print(exercise)
 
     height, width, channels = processed_frame.shape
     if(width>height):
