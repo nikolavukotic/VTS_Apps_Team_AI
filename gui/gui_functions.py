@@ -7,19 +7,27 @@ from yolo_processing.exercises import run_yolo
 
 import tkinter as tk
 import os
-import time
+from PIL import Image, ImageTk
 import cv2
 
 selected_video = ''
 selected_exercise = 0
+
+global frame_counter
 frame_counter = 0
 
 def create_logo(frame, spacer_pady, columnspan):
-    logo_label = tk.Label(frame, text="VTŠFIT", font=("Helvetica", 24, "bold"), background=c.background, foreground=c.accent)
+
+    image_path = "assets/gui_images/gui_logo.png"
+    logo_image = tk.PhotoImage(file=image_path)
+
+    logo_label = tk.Label(frame, image=logo_image, background=c.background)
+    logo_image.image = logo_image
     logo_label.grid(row=0, column=0, padx=10, pady=10, columnspan=columnspan)
 
     image = tk.PhotoImage(file="assets/gui_images/gui_line.png")
     image_label = tk.Label(frame, image=image, borderwidth=0, relief="flat")
+    image_label.image = image
     image_label.grid(row=1, column=0, columnspan=columnspan)
     
     spacer = tk.Label(frame, pady=spacer_pady, bg=c.background)
@@ -34,54 +42,10 @@ def select_existing_video(selected_option, root, source_frame):
 def workout_live(selected_option, root, source_frame):
     pass
 
-#TODO
 def record_new_video(root, source_frame):
     global selected_video
-
-    cats = []  # Array to store captured frames
-    # Open the camera (camera index 0 by default, but you can change it if needed)
-    cap = cv2.VideoCapture(0)
-
-    start_time = time.time()  # Record the start time
-    while True:
-        ret, frame = cap.read()  # Read a frame from the camera
-
-        if not ret:
-            break  # Break the loop if no frame is captured
-
-        cats.append(frame)  # Append the frame to the "cats" array as a NumPy array
-
-        current_time = time.time()
-        elapsed_time = current_time - start_time
-
-        if elapsed_time >= 5:
-            break  # Stop capturing frames after 5 seconds
-
-    cap.release()  # Release the camera
-    cv2.destroyAllWindows()  # Close any OpenCV windows
-
-    # Define the shape of your images (original dimensions)
-    original_height, original_width = (750, 420)  # Adjust to your image dimensions
-
-    # List of images
-    images = cats
-
-    # Define the output video file
-    video_name = 'exercise_videos/new_videos/recorded_video.mp4'
-
-    # Define the codec and create a VideoWriter object
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(video_name, fourcc, 30, (420, 750))
-
-    # Resize and write the images to the video
-    for image in images:
-        # Resize the image to 250x250
-        resized_image = cv2.resize(image, (420, 750))
-        out.write(resized_image)
-    out.release()
-
     selected_video = 'exercise_videos/new_videos/recorded_video.mp4'
-    create_exercise_frame(root, source_frame)
+    create_exercise_frame2(root, source_frame)
 
 def get_existing_videos():
     folder_path = "assets/exercise_videos/existing_videos"
@@ -152,6 +116,11 @@ def select_exercise(exercise, root, exercise_frame):
     selected_exercise = exercise
     create_display_frame(root, exercise_frame)
 
+def select_exercise2(exercise, root, exercise_frame):
+    global selected_exercise
+    selected_exercise = exercise
+    create_record_frame(root, exercise_frame)
+
 def create_exercise_frame(root, source_frame):
     source_frame.destroy()
 
@@ -174,14 +143,37 @@ def create_exercise_frame(root, source_frame):
         exercise_label = tk.Label(exercises_frame, image=exercise_image, border=0, relief='flat')
         exercise_label.image = exercise_image
         exercise_label.grid(row=row, column=col, padx=p.exercise, pady=p.exercise)
-        exercise_label.bind("<Button-1>", lambda event, i=i: select_exercise(i, root, exercise_frame))   
+        exercise_label.bind("<Button-1>", lambda event, i=i: select_exercise(i, root, exercise_frame))  
+
+def create_exercise_frame2(root, source_frame):
+    source_frame.destroy()
+
+    exercise_frame = tk.Frame(root, bg=c.background)
+    exercise_frame.pack()
+    exercise_frame.pack(fill=tk.BOTH, expand=True)
+    create_logo(exercise_frame, sp.exercise, 5)
+
+    exercises_frame = tk.Frame(exercise_frame, background=c.background)
+    exercises_frame.grid(row=3, column=1, columnspan=3)
+    exercise_images = []
+    for i in range(1, 7):
+        image_path = f"assets/gui_images/gui_exercises/gui_exercise_{i}.png"
+        exercise_image = tk.PhotoImage(file=image_path)
+        exercise_images.append(exercise_image)
+
+    for i, exercise_image in enumerate(exercise_images):
+        row = i // 3
+        col = i % 3
+        exercise_label = tk.Label(exercises_frame, image=exercise_image, border=0, relief='flat')
+        exercise_label.image = exercise_image
+        exercise_label.grid(row=row, column=col, padx=p.exercise, pady=p.exercise)
+        exercise_label.bind("<Button-1>", lambda event, i=i: select_exercise2(i, root, exercise_frame))    
 
 #Display
 
 def create_display_frame(root, exercise_frame):
     exercise_frame.destroy()
     print(selected_video)
-
 
     display_frame = tk.Frame(root, bg=c.background)
     display_frame.pack()
@@ -197,6 +189,13 @@ def create_display_frame(root, exercise_frame):
     vertical_label.grid(row=0, column=0)
 
     def update_display():
+
+        image_path = "assets/gui_images/gui_logo.png"
+        logo_image = tk.PhotoImage(file=image_path)
+    
+        logo_label = tk.Label(display_frame, image=logo_image, background=c.background)
+        logo_image.image = logo_image
+        logo_label.grid(row=0, column=0, padx=10, pady=10, columnspan=3)
         global frame_counter
 
         cap = cv2.VideoCapture(selected_video)
@@ -235,8 +234,94 @@ def create_display_frame(root, exercise_frame):
                             text='Play',
                             command=update_display                               
                             )
+    
+
     play_button_border.grid(row=4,column=1, pady=10)
     play_button.grid(column=0, row=0)
+
+#RECORD NEW VIDEO
+def create_record_frame(root, exercise_frame):
+    exercise_frame.destroy()
+
+    preview_frame = tk.Frame(root, bg=c.background)
+    preview_frame.pack()
+    preview_frame.pack(fill=tk.BOTH, expand=True)
+    create_logo(preview_frame, sp.display, 3)
+
+    vertical_frame = tk.Frame(preview_frame, background=c.background)
+    vertical_frame.grid(row=3, column=1)
+
+    default_image = tk.PhotoImage(file="assets/gui_images/strumf.png")
+    vertical_label = tk.Label(vertical_frame, image=default_image, borderwidth=0, relief="flat")
+    vertical_label.image = default_image
+    vertical_label.grid(row=0, column=0)
+    
+    frames = []
+    global selected_video
+    selected_video = 'assets/exercise_videos/new_videos/recorded_video.mp4'
+
+    co = 0
+    cap = cv2.VideoCapture(0)   
+    def update_preview():
+        nonlocal co
+        nonlocal frames
+        nonlocal root
+        nonlocal preview_frame
+
+        if (co < 100): #30 FRAMES * 10 SECONDS
+            ret, frame = cap.read()
+            frames.append(frame)
+
+            frame = cv2.resize(frame, (410, 740))
+            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            pil_image = Image.fromarray(frame_rgb)
+            tk_image = ImageTk.PhotoImage(pil_image)
+            
+            preview_label = tk.Label(vertical_frame, image=tk_image, borderwidth=0, relief="flat")
+            preview_label.config(image=tk_image)
+            preview_label.image = tk_image
+            preview_label.grid(row=0, column=0)
+    
+            co += 1 
+            root.after(1, update_preview)
+        else: 
+            print('End of the video')
+            co = 0
+            cap.release()
+            image = tk.PhotoImage(file="assets/gui_images/strumf.png")
+            
+            video_name = 'assets/exercise_videos/new_videos/recorded_video.mp4'
+            fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+            out = cv2.VideoWriter(video_name, fourcc, 30, (420, 750))
+        
+            for f in frames:
+                print('cat')
+                resized_image = cv2.resize(f, (420, 750))
+                out.write(resized_image)
+            out.release()
+            create_display_frame(root, preview_frame)
+
+    play_button_border = tk.Frame(preview_frame, st.button_frame)
+    play_button = tk.Button(                       
+                            play_button_border,
+                            font = t.text,
+                            background=c.object,
+                            foreground= c.text,
+                            activebackground= c.object,
+                            activeforeground= c.accent,
+                            highlightthickness= 2,
+                            highlightbackground= c.accent,
+                            highlightcolor="WHITE",
+                            width=21,
+                            height=1, 
+                            border=0,
+                            text='Record',
+                            command=update_preview                               
+                            )
+    play_button_border.grid(row=4,column=1, pady=10)
+    play_button.grid(column=0, row=0)
+
+
 
 #Other
 def close_window(root, event):
