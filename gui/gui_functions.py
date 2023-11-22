@@ -3,7 +3,7 @@ from gui.gui_config import Padding as p
 from gui.gui_config import Spacer as sp
 from gui.gui_config import Text as t
 from gui.gui_config import Styles as st
-from yolo_processing.exercises import run_yolo
+from yolo_processing.exercises import run_yolo,message,erHandler
 
 import tkinter as tk
 import os
