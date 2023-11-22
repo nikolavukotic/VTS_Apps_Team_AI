@@ -1,7 +1,8 @@
 class Colors:
     background = "#1c1c22"
     object = "#2a2a34"
-    accent = "#0e74bb"
+    #accent = "#0e74bb"
+    accent = '#c8da2b'
     text = "WHITE"
 
 class Spacer:
