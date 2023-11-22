@@ -7,9 +7,10 @@ message = ""
 erHandler = 0
 
 
-#done
+
 def biceps_draw_yolo(frame):
-        
+        global message
+        global erHandler
         osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
         pro = BicepsConfig.check(osoba)
         if(pro == 3):
@@ -20,8 +21,6 @@ def biceps_draw_yolo(frame):
         if(pro == 1 or both):
             message = "nastavite..."
             erHandler = 0
-            print('desna strana radi')
-            print(both)
             
             cv2.line(frame, (int(osoba.desnaSaka.x),int(osoba.desnaSaka.y)), (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (0,0,0), 3)
@@ -75,9 +74,7 @@ def biceps_draw_yolo(frame):
 
         if(pro == 2 or both):
             message = "nastavite..."
-            erHandler = 0   
-            print('leva strana radi')
-            print(both)
+            erHandler = 0
             
             cv2.line(frame, (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (int(osoba.levoRame.x),int(osoba.levoRame.y)), (0,0,0), 3)
@@ -133,9 +130,11 @@ def biceps_draw_yolo(frame):
            erHandler = 1
 
         return frame
-#done
+
 def squat_draw_yolo(frame):
-    
+    global message
+    global erHandler
+
     osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
     pro = SquatConfig.check(osoba)
     if(pro == 3):
@@ -144,7 +143,8 @@ def squat_draw_yolo(frame):
         both = False
     if(pro == 1 or both):
         message = "nastavite..."
-        erHandler = 0 
+        erHandler = 0
+
         cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), (0,0,0), 3)
         cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
         cv2.circle(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
@@ -174,6 +174,7 @@ def squat_draw_yolo(frame):
     if(pro == 2 or both):
         message = "nastavite..."
         erHandler = 0
+
         cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (0,0,0), 3)
         cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)
         cv2.circle(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
@@ -205,9 +206,10 @@ def squat_draw_yolo(frame):
         erHandler = 1
 
     return frame
-#done
+
 def deadLift_draw_yolo(frame):
-    
+    global message
+    global erHandler
     osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
     pro = DeadLiftConfig.check(osoba)
     if(pro == 3):
@@ -216,7 +218,8 @@ def deadLift_draw_yolo(frame):
         both = False
         
     if(pro == 1 or both):
-
+            message = "nastavite..."
+            erHandler = 0
            
             cv2.line(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
@@ -271,7 +274,9 @@ def deadLift_draw_yolo(frame):
                         thickness = 3)
     
     if(pro == 2 or both):
-
+            message = "nastavite..."
+            erHandler = 0
+            
             cv2.line(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (int(osoba.levoRame.x),int(osoba.levoRame.y)), (0,0,0), 3)
@@ -332,11 +337,11 @@ def deadLift_draw_yolo(frame):
 
     
     return frame
-#done
+
 def fly_draw_yolo(frame):
-    
-        
-            
+        global message
+        global erHandler
+
         osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
         pro = FlyConfig.check(osoba)
         if(pro == 3):
@@ -345,6 +350,8 @@ def fly_draw_yolo(frame):
             both = False
         
         if(pro == 1 or both):
+            message = "nastavite..."
+            erHandler = 0
 
             cv2.line(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (0,0,0), 3)
@@ -391,6 +398,8 @@ def fly_draw_yolo(frame):
                         thickness = 3)
             
         if(pro == 2 or both):
+            message = "nastavite..."
+            erHandler = 0
             cv2.line(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (int(osoba.levoRame.x),int(osoba.levoRame.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), (0,0,0), 3)
@@ -443,8 +452,11 @@ def fly_draw_yolo(frame):
 
 
         return frame
-#done
+
 def pushups_draw_yolo(frame):
+    global message
+    global erHandler
+
     osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
     pro = PushUpsConfig.check(osoba)
     if(pro == 3):
@@ -455,8 +467,6 @@ def pushups_draw_yolo(frame):
     if(pro == 1 or both):
         message = "nastavite..."
         erHandler = 0
-        print('desna strana radi')
-        print(both)
             
         cv2.line(frame, (int(osoba.desnaSaka.x),int(osoba.desnaSaka.y)), (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (0,0,0), 3)
         cv2.line(frame, (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (0,0,0), 3)
@@ -533,8 +543,6 @@ def pushups_draw_yolo(frame):
     if(pro == 2 or both):
         message = "nastavite..."
         erHandler = 0
-        print('leva strana radi')
-        print(both)
             
         cv2.line(frame, (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (0,0,0), 3)
         cv2.line(frame, (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (int(osoba.levoRame.x),int(osoba.levoRame.y)), (0,0,0), 3)
@@ -613,6 +621,8 @@ def pushups_draw_yolo(frame):
     return frame
 
 def abs_draw_yolo(frame):
+    global message
+    global erHandler
     osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
     pro = AbsConfig.check(osoba)
     if(pro == 3):
@@ -621,7 +631,10 @@ def abs_draw_yolo(frame):
         both = False
         
     if(pro == 1 or both):
-
+            global message
+            message = "nastavite..."
+            global erHandler
+            erHandler = 0
            
             cv2.line(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
@@ -672,6 +685,8 @@ def abs_draw_yolo(frame):
                         thickness = 3)
     
     if(pro == 2 or both):
+            message = "nastavite..."
+            erHandler = 0
 
             cv2.line(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)

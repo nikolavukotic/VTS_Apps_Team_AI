@@ -1,11 +1,7 @@
-import cv2
 from yolo_processing.osoba import *
-import math
-import numpy as np 
-from PIL import Image as im
 from yolo_processing.yolo import *
 
-#done
+
 class BicepsConfig:
     angleLeftShoulderLower = 0
     angleLeftShoulderUpper = 40
@@ -49,7 +45,7 @@ class BicepsConfig:
         
         
         return s
-#done    
+    
 class SquatConfig:
     angleKneeLimitBlue = 95
     angleKneeLimitGreen = 80
@@ -77,7 +73,7 @@ class SquatConfig:
         
         
         return s           
-#done
+
 class FlyConfig:
     angleLeftShoulderLower = 18
     angleLeftShoulderUpper = 100
@@ -115,7 +111,7 @@ class FlyConfig:
             s=3
             
         return s
-#done    
+    
 class PushUpsConfig:
     angleLeftElbowLower = 80
     angleLeftElbowUpper = 160
@@ -158,7 +154,7 @@ class PushUpsConfig:
         
         
         return s
-#done
+
 class AbsConfig:
     angleLeftBodyLower = 60
     angleLeftBodyUpper = 140
@@ -172,17 +168,17 @@ class AbsConfig:
     angleRightBodyLimitGreenL = 65
     angleRightBodyLimitGreenU = 135
 
-    angleRightKneeLower = 170
-    angleRightKneeUpper = 190
+    angleRightKneeLower = 75
+    angleRightKneeUpper = 95
 
-    angleRightKneeLimitGreenL = 175
-    angleRightKneeLimitGreenU = 185
+    angleRightKneeLimitGreenL = 80
+    angleRightKneeLimitGreenU = 90
 
-    angleLeftKneeLower = 170
-    angleLeftKneeUpper = 190
+    angleLeftKneeLower = 75
+    angleLeftKneeUpper = 95
 
-    angleLeftKneeLimitGreenL = 175
-    angleLeftKneeLimitGreenU = 185
+    angleLeftKneeLimitGreenL = 80
+    angleLeftKneeLimitGreenU = 90
 
     def check(osoba):
         s = 0
@@ -207,7 +203,7 @@ class AbsConfig:
         
         
         return s   
-#done
+
 class DeadLiftConfig:
     
     angleLeftKneeLower = 80
