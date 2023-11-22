@@ -38,10 +38,10 @@ def biceps_draw_yolo(frame):
             g=0
             b=0
             ugaoDesnoRame = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoRame,osoba.desniLakat))
-            if(ugaoDesnoRame > BicepsConfig.angleRightShoulderLower and ugaoDesnoRame < BicepsConfig.angleRightShoulderUpper): 
+            if(ugaoDesnoRame > PushUpsConfig.angleRightShoulderLower and ugaoDesnoRame < PushUpsConfig.angleRightShoulderUpper): 
                 g=0
                 b=255
-                if(ugaoDesnoRame < BicepsConfig.angleRightShoulderLimitGreen):
+                if(ugaoDesnoRame < PushUpsConfig.angleRightShoulderLimitGreen):
                     g=255
                     b=0
             else: 
@@ -57,10 +57,10 @@ def biceps_draw_yolo(frame):
             g=0
             b=0
             ugaoDesniLakat = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniLakat,osoba.desnaSaka))
-            if(ugaoDesniLakat > BicepsConfig.angleRightElbowLower and ugaoDesniLakat < BicepsConfig.angleRightElbowUpper): 
+            if(ugaoDesniLakat > PushUpsConfig.angleRightElbowLower and ugaoDesniLakat < PushUpsConfig.angleRightElbowUpper): 
                 g=0
                 b=255
-                if(ugaoDesniLakat <= BicepsConfig.angleRightElbowLimitGreen):
+                if(ugaoDesniLakat <= PushUpsConfig.angleRightElbowLimitGreen):
                     g=255
                     b=0
             else: 
@@ -94,10 +94,10 @@ def biceps_draw_yolo(frame):
             g=0
             b=0
             ugaoLevoRame = int(osoba.izracunajUgao(osoba.leviKuk,osoba.levoRame,osoba.leviLakat))
-            if(ugaoLevoRame > BicepsConfig.angleLeftShoulderLower and ugaoLevoRame < BicepsConfig.angleLeftShoulderUpper): 
+            if(ugaoLevoRame > PushUpsConfig.angleLeftShoulderLower and ugaoLevoRame < PushUpsConfig.angleLeftShoulderUpper): 
                 g=0
                 b=255
-                if(ugaoLevoRame < BicepsConfig.angleLeftShoulderLimitGreen):
+                if(ugaoLevoRame < PushUpsConfig.angleLeftShoulderLimitGreen):
                     g=255
                     b=0
             else: 
@@ -113,10 +113,10 @@ def biceps_draw_yolo(frame):
             g=0
             b=0    
             ugaoLeviLakat = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviLakat,osoba.levaSaka))
-            if(ugaoLeviLakat > BicepsConfig.angleLeftElbowLower and ugaoLeviLakat < BicepsConfig.angleLeftElbowUpper): 
+            if(ugaoLeviLakat > PushUpsConfig.angleLeftElbowLower and ugaoLeviLakat < PushUpsConfig.angleLeftElbowUpper): 
                 g=0
                 b=255
-                if(ugaoLeviLakat <= BicepsConfig.angleLeftElbowLimitGreen):
+                if(ugaoLeviLakat <= PushUpsConfig.angleLeftElbowLimitGreen):
                     g=255
                     b=0
             else: 
@@ -155,10 +155,10 @@ def squat_draw_yolo(frame):
         g=0
         b=0
         ugaoDesnoKoleno = int(osoba.izracunajUgao(osoba.desnoStopalo,osoba.desnoKoleno,osoba.desniKuk))
-        if(ugaoDesnoKoleno > SquatConfig.angleLeftKneeLimitBlue):
+        if(ugaoDesnoKoleno > SquatConfig.angleKneeLimitBlue):
             b=255
             g=0
-        elif(ugaoDesnoKoleno > SquatConfig.angleLeftKneeLimitGreen):
+        elif(ugaoDesnoKoleno > SquatConfig.angleKneeLimitGreen):
             g=255
             b=0
         else: 
@@ -184,10 +184,10 @@ def squat_draw_yolo(frame):
         g=0
         b=0
         ugaoLevoKoleno = int(osoba.izracunajUgao(osoba.levoStopalo,osoba.levoKoleno,osoba.leviKuk))
-        if(ugaoLevoKoleno > SquatConfig.angleLeftKneeLimitBlue):
+        if(ugaoLevoKoleno > SquatConfig.angleKneeLimitBlue):
             b=255
             g=0
-        elif(ugaoLevoKoleno > SquatConfig.angleLeftKneeLimitGreen):
+        elif(ugaoLevoKoleno > SquatConfig.angleKneeLimitGreen):
             g=255
             b=0
         else: 
@@ -205,19 +205,19 @@ def squat_draw_yolo(frame):
         erHandler = 1
 
     return frame
-
+#done
 def deadLift_draw_yolo(frame):
     
     osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
     pro = DeadLiftConfig.check(osoba)
-    if(pro == 1):
+    if(pro == 3):
+        both = True
+    else:
+        both = False
+        
+    if(pro == 1 or both):
 
-            cv2.line(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (int(osoba.levoRame.x),int(osoba.levoRame.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), (0,0,0), 3)
-            
+           
             cv2.line(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
             cv2.line(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (0,0,0), 3)
@@ -231,6 +231,53 @@ def deadLift_draw_yolo(frame):
             cv2.circle(frame, (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), radius=5, color=(255, 0, 0), thickness=5)
             cv2.circle(frame, (int(osoba.desnaSaka.x),int(osoba.desnaSaka.y)), radius=5, color=(255, 0, 0), thickness=5)
             
+            r=0
+            g=0
+            b=0
+            ugaoDesnoKoleno = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoKoleno,osoba.desnoStopalo))
+            if(ugaoDesnoKoleno > DeadLiftConfig.angleRightKneeLower and ugaoDesnoKoleno < DeadLiftConfig.angleRightKneeUpper): 
+                g=0
+                b=255
+                if(DeadLiftConfig.angleRightKneeLimitGreenL<= ugaoDesnoKoleno and ugaoDesnoKoleno<= DeadLiftConfig.angleRightKneeLimitGreenU):
+                    g=255
+                    b=0
+            else: 
+                r=255
+            cv2.putText(frame,
+                        text = str(ugaoDesnoKoleno),
+                        org = (int(osoba.desnoKoleno.x)-100, int(osoba.desnoKoleno.y)+20),
+                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                        fontScale = 1.0,
+                        color = (b, g, r),
+                        thickness = 3)
+            r=0
+            g=0
+            b=0
+            ugaoDesniKuk = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniKuk,osoba.desnoKoleno))
+            if(ugaoDesniKuk > DeadLiftConfig.angleRightHipLower and ugaoDesniKuk < DeadLiftConfig.angleRightHipUpper): 
+                g=0
+                b=255
+                if(DeadLiftConfig.angleRightHipLimitGreenL <= ugaoDesniKuk and ugaoDesniKuk <= DeadLiftConfig.angleRightHipLimitGreenU):
+                    g=255
+                    b=0
+            else: 
+                r=255
+            cv2.putText(frame,
+                        text = str(ugaoDesniKuk),
+                        org = (int(osoba.desniKuk.x)-100, int(osoba.desniKuk.y)+20),
+                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                        fontScale = 1.0,
+                        color = (b, g, r),
+                        thickness = 3)
+    
+    if(pro == 2 or both):
+
+            cv2.line(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (int(osoba.levoRame.x),int(osoba.levoRame.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), (0,0,0), 3)
+
             cv2.circle(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
             cv2.circle(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
             cv2.circle(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
@@ -238,113 +285,53 @@ def deadLift_draw_yolo(frame):
             cv2.circle(frame, (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), radius=5, color=(255, 0, 0), thickness=5)
             cv2.circle(frame, (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), radius=5, color=(255, 0, 0), thickness=5)
 
-
-            ##da se dodaju ifovi za ovu vezbu i iscrtavanje uglova
-          
-    else:
-        cv2.putText(frame,
-            text = str("budite sigurni da ste lepo zauzeli polozaj"),
-            org = (0,0),
-            fontFace = cv2.FONT_HERSHEY_DUPLEX,
-            fontScale = 1.0,
-            color = (0, 0, 255),
-            thickness = 3)
-    
-    return frame #vraca nacrtani fejm
-
-def knees_draw_yolo(frame):
-    
-        osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
-        pro = KneesConfig.check(osoba)
-        if(pro == 1):
-
-            cv2.line(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), (0,0,0), 3)
-            
-            cv2.circle(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
-              
-            cv2.line(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (0,0,0), 3)
-            
-            cv2.circle(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
-            
             r=0
             g=0
-            ugaoLevaStranaKuk = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviKuk,osoba.levoKoleno))
-            if(ugaoLevaStranaKuk > 85 and ugaoLevaStranaKuk < 185): 
-                g=255 
+            b=0
+            ugaoLevoKoleno = int(osoba.izracunajUgao(osoba.leviKuk,osoba.levoKoleno,osoba.levoStopalo))
+            if(ugaoLevoKoleno > DeadLiftConfig.angleLeftKneeLower and ugaoLevoKoleno < DeadLiftConfig.angleLeftKneeUpper): 
+                g=0
+                b=255
+                if(DeadLiftConfig.angleLeftKneeLimitGreenL<= ugaoLevoKoleno and ugaoLevoKoleno<= DeadLiftConfig.angleLeftKneeLimitGreenU):
+                    g=255
+                    b=0
             else: 
                 r=255
             cv2.putText(frame,
-                        text = str(ugaoLevaStranaKuk),
-                        org = (int(osoba.levoRame.x)+20, int(osoba.levoRame.y)+20),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, g, r),
-                        thickness = 3)
-            
-            r=0
-            g=0
-            ugaoDesnaStranaKuk = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniKuk,osoba.desnoKoleno))
-            if(ugaoDesnaStranaKuk > 85 and ugaoDesnaStranaKuk < 185): 
-                g=255 
-            else: 
-                r=255
-            cv2.putText(frame,
-                        text = str(ugaoDesnaStranaKuk),
-                        org = (int(osoba.desnoRame.x)-100, int(osoba.desnoRame.y)+20),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, g, r),
-                        thickness = 3)
-            r=0
-            g=0
-            ugaoDesnaStranaKoleno = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoKoleno,osoba.desnoStopalo))
-            if(ugaoDesnaStranaKoleno > 80 and ugaoDesnaStranaKoleno < 100): 
-                g=255 
-            else: 
-                r=255
-            cv2.putText(frame,
-                        text = str(ugaoDesnaStranaKoleno),
-                        org = (int(osoba.desnoKoleno.x)-100, int(osoba.desnoKoleno.y)+20),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, g, r),
-                        thickness = 3)
-            r=0
-            g=0
-            ugaoLevaStranaKoleno = int(osoba.izracunajUgao(osoba.leviKuk,osoba.levoKoleno,osoba.levoStopalo))
-            if(ugaoLevaStranaKoleno > 80 and ugaoLevaStranaKoleno < 100): 
-                g=255 
-            else: 
-                r=255
-            cv2.putText(frame,
-                        text = str(ugaoLevaStranaKoleno),
+                        text = str(ugaoLevoKoleno),
                         org = (int(osoba.levoKoleno.x)-100, int(osoba.levoKoleno.y)+20),
                         fontFace = cv2.FONT_HERSHEY_DUPLEX,
                         fontScale = 1.0,
-                        color = (0, g, r),
+                        color = (b, g, r),
                         thickness = 3)
-        else:
+            r=0
+            g=0
+            b=0
+            ugaoLeviKuk = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviKuk,osoba.levoKoleno))
+            if(ugaoLeviKuk > DeadLiftConfig.angleLeftHipLower and ugaoLeviKuk < DeadLiftConfig.angleLeftHipUpper): 
+                g=0
+                b=255
+                if(DeadLiftConfig.angleLeftHipLimitGreenL <= ugaoLeviKuk and ugaoLeviKuk <= DeadLiftConfig.angleLeftHipLimitGreenU):
+                    g=255
+                    b=0
+            else: 
+                r=255
             cv2.putText(frame,
-                        text = str("budite sigurni da ste lepo zauzeli polozaj"),
-                        org = (0,200),
+                        text = str(ugaoLeviKuk),
+                        org = (int(osoba.leviKuk.x)-100, int(osoba.leviKuk.y)+20),
                         fontFace = cv2.FONT_HERSHEY_DUPLEX,
                         fontScale = 1.0,
-                        color = (0, 0, 255),
+                        color = (b, g, r),
                         thickness = 3)
-        if(pro == 2):
-            errorMessage = 'neke tacke nisu vidljive na yolu, popravite polozaj'
 
-        return frame
+           
+          
+    if(pro == 0):
+        message = "budite sigurni da ste lepo zauzeli polozaj, neki delovi tela nisu vidljivi"
+        erHandler = 1
+
+    
+    return frame
 #done
 def fly_draw_yolo(frame):
     
@@ -456,179 +443,295 @@ def fly_draw_yolo(frame):
 
 
         return frame
-    
+#done
 def pushups_draw_yolo(frame):
-    
-
-        osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
-        pro = PushUpsConfig.check(osoba)
-        if(pro == 1):
-
-            cv2.line(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.x)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.x)), (int(osoba.levoRame.x),int(osoba.levoRame.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (0,0,0), 3)
+    osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
+    pro = PushUpsConfig.check(osoba)
+    if(pro == 3):
+        both = True
+    else:
+        both = False
+        
+    if(pro == 1 or both):
+        message = "nastavite..."
+        erHandler = 0
+        print('desna strana radi')
+        print(both)
             
+        cv2.line(frame, (int(osoba.desnaSaka.x),int(osoba.desnaSaka.y)), (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (0,0,0), 3)
+        cv2.line(frame, (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (0,0,0), 3)
+        cv2.line(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
+        cv2.line(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (0,0,0), 3)
+        cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), (0,0,0), 3)
+        
+        cv2.circle(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.desnaSaka.x),int(osoba.desnaSaka.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
+            
+        r=0
+        g=0
+        b=0
+        ugaoDesniLakat = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniLakat,osoba.desnaSaka))
+        if(ugaoDesniLakat > PushUpsConfig.angleRightElbowLower and ugaoDesniLakat < PushUpsConfig.angleRightElbowUpper): 
+            g=0
+            b=255
+            if(PushUpsConfig.angleRightElbowLimitGreenL<=ugaoDesniLakat and ugaoDesniLakat <= PushUpsConfig.angleRightElbowLimitGreenU):
+                g=255
+                b=0
+        else: 
+            r=255
+        cv2.putText(frame,
+                    text = str(ugaoDesniLakat),
+                    org = (int(osoba.desniLakat.x)-100, int(osoba.desniLakat.y)-40),
+                    fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                    fontScale = 1.0,
+                    color = (b, g, r),
+                    thickness = 3)
+        r=0
+        g=0
+        b=0
+        ugaoDesniTeloKuk = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniKuk,osoba.desnoKoleno))
+        if(ugaoDesniTeloKuk > PushUpsConfig.angleRightBodyLower and ugaoDesniTeloKuk < PushUpsConfig.angleRightBodyUpper): 
+            g=0
+            b=255
+            if(True):
+                g=255
+                b=0
+        else: 
+            r=255
+        cv2.putText(frame,
+                    text = str(ugaoDesniTeloKuk),
+                    org = (int(osoba.desniKuk.x)-90, int(osoba.desniKuk.y)-40),
+                    fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                    fontScale = 1.0,
+                    color = (b, g, r),
+                    thickness = 3)
+        r=0
+        g=0
+        b=0
+        ugaoDesniTeloKoleno = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoKoleno,osoba.desnoStopalo))
+        if(ugaoDesniTeloKoleno > PushUpsConfig.angleRightBodyLower and ugaoDesniTeloKoleno < PushUpsConfig.angleRightBodyUpper): 
+            g=0
+            b=255
+            if(True):
+                g=255
+                b=0
+        else: 
+            r=255
+        cv2.putText(frame,
+                    text = str(ugaoDesniTeloKoleno),
+                    org = (int(osoba.desnoKoleno.x)-90, int(osoba.desnoKoleno.y)-40),
+                    fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                    fontScale = 1.0,
+                    color = (b, g, r),
+                    thickness = 3)
+        
+
+    if(pro == 2 or both):
+        message = "nastavite..."
+        erHandler = 0
+        print('leva strana radi')
+        print(both)
+            
+        cv2.line(frame, (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (0,0,0), 3)
+        cv2.line(frame, (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), (int(osoba.levoRame.x),int(osoba.levoRame.y)), (0,0,0), 3)
+        cv2.line(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)
+        cv2.line(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (0,0,0), 3)
+        cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (0,0,0), 3)
+        
+        cv2.circle(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
+        cv2.circle(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
+            
+        r=0
+        g=0
+        b=0
+        ugaoLeviLakat = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviLakat,osoba.levaSaka))
+        if(ugaoLeviLakat > PushUpsConfig.angleLeftElbowLower and ugaoLeviLakat < PushUpsConfig.angleLeftElbowUpper): 
+            g=0
+            b=255
+            if(PushUpsConfig.angleLeftElbowLimitGreenL<=ugaoLeviLakat and ugaoLeviLakat <= PushUpsConfig.angleLeftElbowLimitGreenU):
+                g=255
+                b=0
+        else: 
+            r=255
+        cv2.putText(frame,
+                    text = str(ugaoLeviLakat),
+                    org = (int(osoba.leviLakat.x)-100, int(osoba.leviLakat.y)-30),
+                    fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                    fontScale = 1.0,
+                    color = (b, g, r),
+                    thickness = 3)
+        r=0
+        g=0
+        b=0
+        ugaoLeviTeloKuk = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviKuk,osoba.levoKoleno))
+        if(ugaoLeviTeloKuk > PushUpsConfig.angleLeftBodyLower and ugaoLeviTeloKuk < PushUpsConfig.angleLeftBodyUpper): 
+            g=0
+            b=255
+            if(True):
+                g=255
+                b=0
+        else: 
+            r=255
+        cv2.putText(frame,
+                    text = str(ugaoLeviTeloKuk),
+                    org = (int(osoba.leviKuk.x)-120, int(osoba.leviKuk.y)-40),
+                    fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                    fontScale = 1.0,
+                    color = (b, g, r),
+                    thickness = 3)
+        r=0
+        g=0
+        b=0
+        ugaoLeviTeloKoleno = int(osoba.izracunajUgao(osoba.leviKuk,osoba.levoKoleno,osoba.levoStopalo))
+        if(ugaoLeviTeloKoleno > PushUpsConfig.angleLeftBodyLower and ugaoLeviTeloKoleno < PushUpsConfig.angleLeftBodyUpper): 
+            g=0
+            b=255
+            if(True):
+                g=255
+                b=0
+        else: 
+            r=255
+        cv2.putText(frame,
+                    text = str(ugaoLeviTeloKoleno),
+                    org = (int(osoba.levoKoleno.x)-100, int(osoba.levoKoleno.y)-40),
+                    fontFace = cv2.FONT_HERSHEY_DUPLEX,
+                    fontScale = 1.0,
+                    color = (b, g, r),
+                    thickness = 3)
+    if(pro == 0):
+        message = "budite sigurni da ste lepo zauzeli polozaj, neki delovi tela nisu vidljivi"
+        erHandler = 1
+
+    return frame
+
+def abs_draw_yolo(frame):
+    osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
+    pro = AbsConfig.check(osoba)
+    if(pro == 3):
+        both = True
+    else:
+        both = False
+        
+    if(pro == 1 or both):
+
+           
             cv2.line(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.x)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.x)), (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.desnaSaka.x),int(osoba.desnaSaka.y)), (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (0,0,0), 3)
             
-            cv2.circle(frame, (int(osoba.levaSaka.x),int(osoba.levaSaka.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.desnaSaka.x),int(osoba.desnaSaka.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
             cv2.circle(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
             cv2.circle(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.leviLakat.x),int(osoba.leviLakat.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.desniLakat.x),int(osoba.desniLakat.y)), radius=5, color=(255, 0, 0), thickness=5)
-
-            
-             
-         
+            cv2.circle(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.circle(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), radius=5, color=(255, 0, 0), thickness=5)
+           
             r=0
             g=0
-            ugaoLeviRuka = int(osoba.izracunajUgao(osoba.levaSaka,osoba.leviLakat,osoba.levoRame))
-            if(ugaoLeviRuka > PushUpsConfig.angleLeftElbowLower and ugaoLeviRuka <  PushUpsConfig.angleLeftElbowUpper): 
-                g=255 
+            b=0
+            ugaoDesnoKoleno = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoKoleno,osoba.desnoStopalo))
+            if(ugaoDesnoKoleno > AbsConfig.angleRightKneeLower and ugaoDesnoKoleno < AbsConfig.angleRightKneeUpper): 
+                g=0
+                b=255
+                if(AbsConfig.angleRightBodyLimitGreenL<= ugaoDesnoKoleno and ugaoDesnoKoleno <= AbsConfig.angleRightBodyLimitGreenU):
+                    g=255
+                    b=0
             else: 
                 r=255
             cv2.putText(frame,
-                        text = str(ugaoLeviRuka),
-                        org = (int(osoba.levoRame.x)+20, int(osoba.levoRame.y)+20),
+                        text = str(ugaoDesnoKoleno),
+                        org = (int(osoba.desnoKoleno.x)-100, int(osoba.desnoKoleno.y)+20),
                         fontFace = cv2.FONT_HERSHEY_DUPLEX,
                         fontScale = 1.0,
-                        color = (0, g, r),
-                        thickness = 3)
-            
-            r=0
-            g=0
-            ugaoDesniRuka = int(osoba.izracunajUgao(osoba.desnaSaka,osoba.desniLakat,osoba.desnoRame))
-            if(ugaoDesniRuka >  PushUpsConfig.angleRightElbowLower and ugaoDesniRuka < PushUpsConfig.angleRightElbowUpper): 
-                g=255 
-            else: 
-                r=255
-            cv2.putText(frame,
-                        text = str(ugaoDesniRuka),
-                        org = (int(osoba.desnoRame.x)-100, int(osoba.desnoRame.y)+20),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, g, r),
+                        color = (b, g, r),
                         thickness = 3)
             r=0
             g=0
-            ugaoTeloLevo = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviKuk,osoba.levoKoleno))
-            if(ugaoTeloLevo > PushUpsConfig.angleLeftBodyLower and ugaoTeloLevo < PushUpsConfig.angleLeftBodyUpper): 
-                g=255 
+            b=0
+            ugaoDesniKuk = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniKuk,osoba.desnoKoleno))
+            if(ugaoDesniKuk > AbsConfig.angleRightBodyLower and ugaoDesniKuk < AbsConfig.angleRightBodyUpper): 
+                g=0
+                b=255
+                if(AbsConfig.angleRightBodyLimitGreenL <= ugaoDesniKuk and ugaoDesniKuk <= AbsConfig.angleRightBodyLimitGreenU):
+                    g=255
+                    b=0
             else: 
                 r=255
             cv2.putText(frame,
-                        text = str(ugaoTeloLevo),
-                        org = (int(osoba.leviKuk.x)-100, int(osoba.leviKuk.y)+20),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, g, r),
-                        thickness = 3)
-            r=0
-            g=0
-            ugaoTeloDesno = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniKuk,osoba.desnoKoleno))
-            if(ugaoTeloLevo > PushUpsConfig.angleRightBodyLower and ugaoTeloDesno < PushUpsConfig.angleRightBodyUpper): 
-                g=255 
-            else: 
-                r=255
-            cv2.putText(frame,
-                        text = str(ugaoTeloDesno),
+                        text = str(ugaoDesniKuk),
                         org = (int(osoba.desniKuk.x)-100, int(osoba.desniKuk.y)+20),
                         fontFace = cv2.FONT_HERSHEY_DUPLEX,
                         fontScale = 1.0,
-                        color = (0, g, r),
+                        color = (b, g, r),
                         thickness = 3)
-        else:
-            cv2.putText(frame,
-                        text = str("budite sigurni da ste lepo zauzeli polozaj"),
-                        org = (0,200),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, 0, 255),
-                        thickness = 3)
-        if(pro == 2):
-            errorMessage = 'neke tacke nisu vidljive na yolu, popravite polozaj'
+    
+    if(pro == 2 or both):
 
-        
-        return frame
-
-def abs_draw_yolo(frame):
-   
-   
-
-        osoba = ocitajOsobu(frame) # Čitanje osobe sa frejma
-        pro = AbsConfig.check(osoba)
-        if(pro == 1):
-
-            cv2.line(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), (0,0,0), 3)
-            
-            cv2.circle(frame, (int(osoba.desniKuk.x),int(osoba.desniKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.desnoRame.x),int(osoba.desnoRame.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.desnoKoleno.x),int(osoba.desnoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.desnoStopalo.x),int(osoba.desnoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
-              
-            cv2.line(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (0,0,0), 3)
-            cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (0,0,0), 3)
-            
-            cv2.circle(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
-            cv2.circle(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.line(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (0,0,0), 3)
+            cv2.line(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), (int(osoba.levoRame.x),int(osoba.levoRame.y)), (0,0,0), 3)
+           
             cv2.circle(frame, (int(osoba.levoKoleno.x),int(osoba.levoKoleno.y)), radius=5, color=(255, 0, 0), thickness=5)
             cv2.circle(frame, (int(osoba.levoStopalo.x),int(osoba.levoStopalo.y)), radius=5, color=(255, 0, 0), thickness=5)
-            
+            cv2.circle(frame, (int(osoba.leviKuk.x),int(osoba.leviKuk.y)), radius=5, color=(255, 0, 0), thickness=5)
+            cv2.circle(frame, (int(osoba.levoRame.x),int(osoba.levoRame.y)), radius=5, color=(255, 0, 0), thickness=5)
+           
             r=0
             g=0
-            ugaoLevaStrana = int(osoba.izracunajUgao(osoba.levoStopalo,osoba.leviKuk,osoba.levoRame))
-            if(ugaoLevaStrana > 100 and ugaoLevaStrana < 150): 
-                g=255 
+            b=0
+            ugaoLevoKoleno = int(osoba.izracunajUgao(osoba.leviKuk,osoba.levoKoleno,osoba.levoStopalo))
+            if(ugaoLevoKoleno > AbsConfig.angleLeftKneeLower and ugaoLevoKoleno < AbsConfig.angleLeftKneeUpper): 
+                g=0
+                b=255
+                if(AbsConfig.angleLeftKneeLimitGreenL<= ugaoLevoKoleno and ugaoLevoKoleno<= AbsConfig.angleLeftKneeLimitGreenU):
+                    g=255
+                    b=0
             else: 
                 r=255
             cv2.putText(frame,
-                        text = str(ugaoLevaStrana),
-                        org = (int(osoba.levoRame.x)+20, int(osoba.levoRame.y)+20),
+                        text = str(ugaoLevoKoleno),
+                        org = (int(osoba.levoKoleno.x)-100, int(osoba.levoKoleno.y)+20),
                         fontFace = cv2.FONT_HERSHEY_DUPLEX,
                         fontScale = 1.0,
-                        color = (0, g, r),
+                        color = (b, g, r),
                         thickness = 3)
-            
             r=0
             g=0
-            ugaoDesnaStrana = int(osoba.izracunajUgao(osoba.desnoStopalo,osoba.desniKuk,osoba.desnoRame))
-            if(ugaoDesnaStrana > 100 and ugaoDesnaStrana < 150): 
-                g=255 
+            b=0
+            ugaoLeviKuk = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviKuk,osoba.levoKoleno))
+            if(ugaoLeviKuk > AbsConfig.angleLeftBodyLower and ugaoLeviKuk < AbsConfig.angleLeftBodyUpper): 
+                g=0
+                b=255
+                if(AbsConfig.angleLeftBodyLimitGreenL <= ugaoLeviKuk and ugaoLeviKuk <= AbsConfig.angleLeftBodyLimitGreenU):
+                    g=255
+                    b=0
             else: 
                 r=255
             cv2.putText(frame,
-                        text = str(ugaoDesnaStrana),
-                        org = (int(osoba.desnoRame.x)-100, int(osoba.desnoRame.y)+20),
+                        text = str(ugaoLeviKuk),
+                        org = (int(osoba.leviKuk.x)-100, int(osoba.leviKuk.y)+20),
                         fontFace = cv2.FONT_HERSHEY_DUPLEX,
                         fontScale = 1.0,
-                        color = (0, g, r),
+                        color = (b, g, r),
                         thickness = 3)
-        else:
-            cv2.putText(frame,
-                        text = str("budite sigurni da ste lepo zauzeli polozaj"),
-                        org = (0,200),
-                        fontFace = cv2.FONT_HERSHEY_DUPLEX,
-                        fontScale = 1.0,
-                        color = (0, 0, 255),
-                        thickness = 3)
-        return frame
+
+           
+          
+    if(pro == 0):
+        message = "budite sigurni da ste lepo zauzeli polozaj, neki delovi tela nisu vidljivi"
+        erHandler = 1
+
     
-exerciseList = [squat_draw_yolo,deadLift_draw_yolo, pushups_draw_yolo, abs_draw_yolo,biceps_draw_yolo , fly_draw_yolo, knees_draw_yolo ]
+    return frame
+       
+    
+exerciseList = [squat_draw_yolo,deadLift_draw_yolo, pushups_draw_yolo, abs_draw_yolo,biceps_draw_yolo , fly_draw_yolo]
 
 #0 squat
 #1 deadLift
@@ -636,7 +739,6 @@ exerciseList = [squat_draw_yolo,deadLift_draw_yolo, pushups_draw_yolo, abs_draw_
 #3 abs
 #4 biceps
 #5 fly
-#6 knees
 
 def run_yolo(frame, exercise):
 
