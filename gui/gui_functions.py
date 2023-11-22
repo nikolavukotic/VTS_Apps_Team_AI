@@ -17,11 +17,17 @@ global frame_counter
 frame_counter = 0
 
 def create_logo(frame, spacer_pady, columnspan):
-    logo_label = tk.Label(frame, text="VTŠFIT", font=("Helvetica", 24, "bold"), background=c.background, foreground=c.accent)
+
+    image_path = "assets/gui_images/gui_logo.png"
+    logo_image = tk.PhotoImage(file=image_path)
+
+    logo_label = tk.Label(frame, image=logo_image, background=c.background)
+    logo_image.image = logo_image
     logo_label.grid(row=0, column=0, padx=10, pady=10, columnspan=columnspan)
 
     image = tk.PhotoImage(file="assets/gui_images/gui_line.png")
     image_label = tk.Label(frame, image=image, borderwidth=0, relief="flat")
+    image_label.image = image
     image_label.grid(row=1, column=0, columnspan=columnspan)
     
     spacer = tk.Label(frame, pady=spacer_pady, bg=c.background)
@@ -169,7 +175,6 @@ def create_display_frame(root, exercise_frame):
     exercise_frame.destroy()
     print(selected_video)
 
-
     display_frame = tk.Frame(root, bg=c.background)
     display_frame.pack()
     display_frame.pack(fill=tk.BOTH, expand=True)
@@ -184,6 +189,13 @@ def create_display_frame(root, exercise_frame):
     vertical_label.grid(row=0, column=0)
 
     def update_display():
+
+        image_path = "assets/gui_images/gui_logo.png"
+        logo_image = tk.PhotoImage(file=image_path)
+    
+        logo_label = tk.Label(display_frame, image=logo_image, background=c.background)
+        logo_image.image = logo_image
+        logo_label.grid(row=0, column=0, padx=10, pady=10, columnspan=3)
         global frame_counter
 
         cap = cv2.VideoCapture(selected_video)
@@ -222,6 +234,8 @@ def create_display_frame(root, exercise_frame):
                             text='Play',
                             command=update_display                               
                             )
+    
+
     play_button_border.grid(row=4,column=1, pady=10)
     play_button.grid(column=0, row=0)
 
