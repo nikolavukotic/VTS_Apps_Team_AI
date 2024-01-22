@@ -12,16 +12,27 @@ import cv2
 
 selected_video = ''
 selected_exercise = 0
-
-global frame_counter
 frame_counter = 0
 
-def create_logo(frame, spacer_pady, columnspan):
+global temp
+temp = None
 
+def start(root):
+    create_source_frame(root)
+    temp = root
+
+def return_to_home(current_window):
+    print(current_window)
+    current_window.destroy()
+    create_source_frame(temp)
+
+def create_logo(frame, spacer_pady, columnspan):
+    
     image_path = "assets/gui_images/gui_logo.png"
     logo_image = tk.PhotoImage(file=image_path)
 
-    logo_label = tk.Label(frame, image=logo_image, background=c.background)
+    logo_label = tk.Button(frame, image=logo_image, command=lambda: return_to_home(frame), relief=tk.FLAT, bd=0)
+    logo_label.config(bg=c.background)
     logo_image.image = logo_image
     logo_label.grid(row=0, column=0, padx=10, pady=10, columnspan=columnspan)
 
@@ -268,7 +279,15 @@ def create_record_frame(root, exercise_frame):
         nonlocal root
         nonlocal preview_frame
 
-        if (co < 100): #30 FRAMES * 10 SECONDS
+        image_path = "assets/gui_images/gui_logo.png"
+        logo_image = tk.PhotoImage(file=image_path)
+    
+        logo_label = tk.Label(preview_frame, image=logo_image, background=c.background)
+        logo_image.image = logo_image
+        logo_label.grid(row=0, column=0, padx=10, pady=10, columnspan=3)
+        global frame_counter
+
+        if (co < 300): #30 FRAMES * 10 SECONDS
             ret, frame = cap.read()
             frames.append(frame)
 
