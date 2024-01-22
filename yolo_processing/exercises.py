@@ -37,10 +37,10 @@ def biceps_draw_yolo(frame):
             g=0
             b=0
             ugaoDesnoRame = int(osoba.izracunajUgao(osoba.desniKuk,osoba.desnoRame,osoba.desniLakat))
-            if(ugaoDesnoRame > PushUpsConfig.angleRightShoulderLower and ugaoDesnoRame < PushUpsConfig.angleRightShoulderUpper): 
+            if(ugaoDesnoRame > BicepsConfig.angleRightShoulderLower and ugaoDesnoRame < BicepsConfig.angleRightShoulderUpper): 
                 g=0
                 b=255
-                if(ugaoDesnoRame < PushUpsConfig.angleRightShoulderLimitGreen):
+                if(ugaoDesnoRame < BicepsConfig.angleRightShoulderLimitGreen):
                     g=255
                     b=0
             else: 
@@ -56,10 +56,10 @@ def biceps_draw_yolo(frame):
             g=0
             b=0
             ugaoDesniLakat = int(osoba.izracunajUgao(osoba.desnoRame,osoba.desniLakat,osoba.desnaSaka))
-            if(ugaoDesniLakat > PushUpsConfig.angleRightElbowLower and ugaoDesniLakat < PushUpsConfig.angleRightElbowUpper): 
+            if(ugaoDesniLakat > BicepsConfig.angleRightElbowLower and ugaoDesniLakat < BicepsConfig.angleRightElbowUpper): 
                 g=0
                 b=255
-                if(ugaoDesniLakat <= PushUpsConfig.angleRightElbowLimitGreen):
+                if(ugaoDesniLakat <= BicepsConfig.angleRightElbowLimitGreen):
                     g=255
                     b=0
             else: 
@@ -91,10 +91,10 @@ def biceps_draw_yolo(frame):
             g=0
             b=0
             ugaoLevoRame = int(osoba.izracunajUgao(osoba.leviKuk,osoba.levoRame,osoba.leviLakat))
-            if(ugaoLevoRame > PushUpsConfig.angleLeftShoulderLower and ugaoLevoRame < PushUpsConfig.angleLeftShoulderUpper): 
+            if(ugaoLevoRame > BicepsConfig.angleLeftShoulderLower and ugaoLevoRame < BicepsConfig.angleLeftShoulderUpper): 
                 g=0
                 b=255
-                if(ugaoLevoRame < PushUpsConfig.angleLeftShoulderLimitGreen):
+                if(ugaoLevoRame < BicepsConfig.angleLeftShoulderLimitGreen):
                     g=255
                     b=0
             else: 
@@ -110,10 +110,10 @@ def biceps_draw_yolo(frame):
             g=0
             b=0    
             ugaoLeviLakat = int(osoba.izracunajUgao(osoba.levoRame,osoba.leviLakat,osoba.levaSaka))
-            if(ugaoLeviLakat > PushUpsConfig.angleLeftElbowLower and ugaoLeviLakat < PushUpsConfig.angleLeftElbowUpper): 
+            if(ugaoLeviLakat > BicepsConfig.angleLeftElbowLower and ugaoLeviLakat < BicepsConfig.angleLeftElbowUpper): 
                 g=0
                 b=255
-                if(ugaoLeviLakat <= PushUpsConfig.angleLeftElbowLimitGreen):
+                if(ugaoLeviLakat <= BicepsConfig.angleLeftElbowLimitGreen):
                     g=255
                     b=0
             else: 
