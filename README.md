@@ -15,3 +15,25 @@ VTSFIT is an AI Gym assistant designed to prevent injuries and to improve your f
 1. **Preventing injuries:** The artificial intelligence system monitors your form via camera and warns you ahead of time to prevent injuries.
 2. **Improving gym results:**  It provides active feedback warning you when your form isn't correct.
 3. **Simple to use:** VTSFiT is simple to use, you will be ready to start exercising in no time.
+
+## App
+
+1. Video source selection
+![](https://github.com/nikolavukotic/VTS_Apps_Team_AI/blob/main/assets/gui_images/readme3.png)
+
+2. Exercise selection menu
+![](https://github.com/nikolavukotic/VTS_Apps_Team_AI/blob/main/assets/gui_images/readme2.png)
+
+## Examples
+
+1. Correct form
+![](https://github.com/nikolavukotic/VTS_Apps_Team_AI/blob/main/assets/gui_images/readme1.png)
+
+2. Partially correct form
+![](https://github.com/nikolavukotic/VTS_Apps_Team_AI/blob/main/assets/gui_images/readme5.png)
+
+3. Incorrect form
+![](https://github.com/nikolavukotic/VTS_Apps_Team_AI/blob/main/assets/gui_images/readme4.png)
+
+
+
